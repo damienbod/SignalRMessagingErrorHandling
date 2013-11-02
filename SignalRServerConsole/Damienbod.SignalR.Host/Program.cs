@@ -1,8 +1,11 @@
 ﻿using System;
+using Damienbod.SignalR.Host.Unity;
 using Damienbod.SignalR.MyHub;
 using Damienbod.SignalR.MyHub.Dto;
+using Damienbod.Slab;
 using Microsoft.Owin;
 using Microsoft.Owin.Hosting;
+using Microsoft.Practices.Unity;
 
 [assembly: OwinStartup(typeof(Damienbod.SignalR.Host.Startup))]
 namespace Damienbod.SignalR.Host
@@ -13,10 +16,13 @@ namespace Damienbod.SignalR.Host
 
         static void Main(string[] args)
         {
+            
             var url = Configuration.GetInstance().MyHubServiceUrl();
+            _myHub = UnityConfiguration.GetConfiguredContainer().Resolve<IMyHub>();
 
             using (WebApp.Start(url))
             {
+                
                 Console.WriteLine("Server running on {0}", url);
                 while (true)
                 {

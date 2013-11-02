@@ -1,34 +1,39 @@
 ﻿using System;
 using Damienbod.SignalR.MyHub;
 using Damienbod.SignalR.MyHub.Dto;
+using Damienbod.Slab;
 using Microsoft.AspNet.SignalR;
 
 namespace Damienbod.SignalR.Host.Service
 {
     public class MyHub : IMyHub
     {
+        private readonly ISlabLogger _slabLogger;
+
         private readonly IHubContext _hubContext;
-        public MyHub()
+
+        public MyHub(ISlabLogger slabLogger)
         {
+            _slabLogger = slabLogger;
             _hubContext = GlobalHost.ConnectionManager.GetHubContext<MyHubServer>(); 
         }
         
         public void AddMessage(string name, string message)
         {
             _hubContext.Clients.All.addMessage("server", "ServerMessage");
-            Console.WriteLine("Server Sending addMessage\n");
+            _slabLogger.Log(HubType.HubServerVerbose, "Server Sending addMessage");
         }
 
         public void Heartbeat()
         {
             _hubContext.Clients.All.heartbeat();
-            Console.WriteLine("Server Sending heartbeat\n");
+            _slabLogger.Log(HubType.HubServerVerbose, "Server Sending heartbeat");
         }
 
         public void SendHelloObject(HelloModel hello)
         {
             _hubContext.Clients.All.sendHelloObject(hello);
-            Console.WriteLine("Server Sending sendHelloObject\n");
+            _slabLogger.Log(HubType.HubServerVerbose, "Server Sending sendHelloObject");
         }
     }
 }

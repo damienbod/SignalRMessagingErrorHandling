@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Damienbod.SignalR.MyHub.Dto;
+using Damienbod.Slab;
 using Microsoft.AspNet.SignalR;
 
 namespace Damienbod.SignalR.Host.Service
 {
     public class MyHubServer : Hub
     {
+        //private readonly ISlabLogger _slabLogger;
+
+        //public MyHubServer(ISlabLogger slabLogger)
+        //{
+        //    _slabLogger = slabLogger;
+        //}
+
         public void AddMessage(string name, string message)
         {
             Console.WriteLine("Hub AddMessage {0} {1}\n", name, message);

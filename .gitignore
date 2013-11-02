@@ -11,3 +11,7 @@ SignalRServerConsole/Damienbod.Slab/bin
 SignalRServerConsole/Damienbod.Slab/obj
 SignalRServerConsole/MSExampleSignalR.Dto/bin
 SignalRServerConsole/MSExampleSignalR.Dto/obj
+SignalRServerConsole/Damienbod.SignalR.Host/bin
+SignalRServerConsole/Damienbod.SignalR.Host/obj
+SignalRServerConsole/Damienbod.SignalR.MyHub/bin
+SignalRServerConsole/Damienbod.SignalR.MyHub/obj

@@ -21,4 +21,14 @@
         public const int ControllerVerbose = 11;
         public const int ControllerWarning = 12;
     }
+
+    public class HubType
+    {
+        public const int HubServerInformational = 13;
+        public const int HubServerCritical = 14;
+        public const int HubServerError = 15;
+        public const int HubServerLogAlways = 16;
+        public const int HubServerVerbose = 17;
+        public const int HubServerWarning = 18;
+    }
 }

@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HubLogger.cs" />
     <Compile Include="ISlabLogger.cs" />
     <Compile Include="Loggers\ControllerLogger.cs" />
+    <Compile Include="Loggers\HubServerLogger.cs" />
     <Compile Include="LogType.cs" />
     <Compile Include="WebLogger.cs" />
     <Compile Include="Loggers\GlobalLogger.cs" />

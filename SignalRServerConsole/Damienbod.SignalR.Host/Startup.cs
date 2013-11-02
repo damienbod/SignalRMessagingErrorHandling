@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using System;
+using Damienbod.SignalR.Host.Unity;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Cors;
 using Owin;
+
 
 namespace Damienbod.SignalR.Host
 {
@@ -11,6 +14,9 @@ namespace Damienbod.SignalR.Host
             // Branch the pipeline here for requests that start with "/signalr"
             app.Map("/signalr", map =>
             {
+                //GlobalHost.DependencyResolver = new UnityDependencyResolver(UnityConfiguration.GetConfiguredContainer());
+   
+
                 // Setup the CORS middleware to run before SignalR.
                 // By default this will allow all origins. You can 
                 // configure the set of origins and/or http verbs by

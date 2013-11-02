@@ -1,0 +1,13 @@
+SignalRClientWPF/SignalRClientWPF/bin
+SignalRClientWPF/SignalRClientWPF/obj
+SignalRServerConsole/MSExampleSignalR/obj
+SignalRServerConsole/MSExampleSignalR/bin
+SignalRClientWPF/SignalRClientWPF.v12.suo
+SignalRServerConsole/SignalRMessaging.v12.suo
+SignalRClientWeb/SignalRClient/bin
+SignalRClientWeb/SignalRClient/obj
+SignalRClientWeb/SignalRClient.v12.suo
+SignalRServerConsole/Damienbod.Slab/bin
+SignalRServerConsole/Damienbod.Slab/obj
+SignalRServerConsole/MSExampleSignalR.Dto/bin
+SignalRServerConsole/MSExampleSignalR.Dto/obj

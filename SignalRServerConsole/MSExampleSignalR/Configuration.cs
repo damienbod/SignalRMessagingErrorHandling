@@ -42,7 +42,7 @@
 
         public string MyHubServiceUrl()
         {
-            return this.GetConfig("MyHubServiceUrl", typeof(string), "http://localhost:8089");
+            return this.GetConfig("MyHubServiceUrl", typeof(string), "http://localhost:8089/");
         }
 
         /// <summary>

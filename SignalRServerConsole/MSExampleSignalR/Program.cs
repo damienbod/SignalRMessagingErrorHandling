@@ -1,9 +1,10 @@
 ﻿using System;
 using Damienbod.SignalR.MyHub;
 using Damienbod.SignalR.MyHub.Dto;
-using Microsoft.AspNet.SignalR;
+using Microsoft.Owin;
 using Microsoft.Owin.Hosting;
 
+[assembly: OwinStartup(typeof(Damienbod.SignalR.Host.Startup))]
 namespace Damienbod.SignalR.Host
 {
     class Program

@@ -4,7 +4,7 @@ using System.Diagnostics.Tracing;
 
 namespace Damienbod.Slab.Loggers
 {
-    [EventSource(Name = "HubServerLogger")]
+    [EventSource(Name = "HubServerEvents")]
     public class HubServerLogger : EventSource
     {
         public void RegisterLogger(Dictionary<int, Action<string>> exectueLogDict)
@@ -53,7 +53,4 @@ namespace Damienbod.Slab.Loggers
             if (IsEnabled()) WriteEvent(HubType.HubServerWarning, message);
         }
     }
-
-
-
 }

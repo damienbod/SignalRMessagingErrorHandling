@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 
-
 namespace Damienbod.Slab.Loggers
 {
     [EventSource(Name = "GlobalLogger")]
@@ -21,6 +20,7 @@ namespace Damienbod.Slab.Loggers
         [Event(GlobalType.GlobalCritical, Message = "Global Critical: {0}", Level = EventLevel.Critical)]
         public void Critical(string message)
         {
+            
             if (IsEnabled()) WriteEvent(GlobalType.GlobalCritical, message);
         }
 

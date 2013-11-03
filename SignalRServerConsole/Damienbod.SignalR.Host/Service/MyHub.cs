@@ -22,7 +22,8 @@ namespace Damienbod.SignalR.Host.Service
         public void AddMessage(string name, string message)
         {
             _hubContext.Clients.All.addMessage("server", "ServerMessage");
-            _slabLogger.Log(HubType.HubServerVerbose, "Server Sending addMessage");
+            _slabLogger.Log(HubType.HubServerCritical, "Server Sending addMessage");
+            _slabLogger.Log(GlobalType.GlobalCritical, "Server Sending addMessage");
         }
 
         public void Heartbeat()

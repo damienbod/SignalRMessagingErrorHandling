@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using Damienbod.Slab.Events;
 
 namespace Damienbod.Slab.Loggers
 {
-    [EventSource(Name = "HubServerEvents")]
-    public class HubServerLogger : EventSource
+    public class HubServerLogger 
     {
         public void RegisterLogger(Dictionary<int, Action<string>> exectueLogDict)
         {
@@ -17,40 +17,34 @@ namespace Damienbod.Slab.Loggers
             exectueLogDict.Add(HubType.HubServerWarning, Warning);
         }
 
-        [Event(HubType.HubServerCritical, Message = "HubServerLogger Critical: {0}", Level = EventLevel.Critical)]
         public void Critical(string message)
         {
-            if (IsEnabled()) WriteEvent(HubType.HubServerCritical, message);
+            HubServerEvents.Log.Critical(message);
         }
 
-        [Event(HubType.HubServerError, Message = "HubServerLogger Error {0}", Level = EventLevel.Error)]
         public void Error(string message)
         {
-            if (IsEnabled()) WriteEvent(HubType.HubServerError, message);
+            HubServerEvents.Log.Error(message);
         }
 
-        [Event(HubType.HubServerInformational, Message = "HubServerLogger Informational {0}", Level = EventLevel.Informational)]
         public void Informational(string message)
         {
-            if (IsEnabled()) WriteEvent(HubType.HubServerInformational, message);
+            HubServerEvents.Log.Informational(message);
         }
 
-        [Event(HubType.HubServerLogAlways, Message = "HubServerLogger LogAlways {0}", Level = EventLevel.LogAlways)]
         public void LogAlways(string message)
         {
-            if (IsEnabled()) WriteEvent(HubType.HubServerLogAlways, message);
+            HubServerEvents.Log.LogAlways(message);
         }
 
-        [Event(HubType.HubServerVerbose, Message = "HubServerLogger Verbose {0}", Level = EventLevel.Verbose)]
         public void Verbose(string message)
         {
-            if (IsEnabled()) WriteEvent(HubType.HubServerVerbose, message);
+            HubServerEvents.Log.Verbose(message);
         }
 
-        [Event(HubType.HubServerWarning, Message = "HubServerLogger Warning {0}", Level = EventLevel.Warning)]
         public void Warning(string message)
         {
-            if (IsEnabled()) WriteEvent(HubType.HubServerWarning, message);
+            HubServerEvents.Log.Warning(message);
         }
     }
 }

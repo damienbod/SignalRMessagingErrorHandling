@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
+using Damienbod.Slab.Events;
 
 namespace Damienbod.Slab.Loggers
 {
-    [EventSource(Name = "GlobalLogger")]
-    public class GlobalLogger : EventSource
+    public class GlobalLogger
     {
         public void RegisterLogger(Dictionary<int, Action<string>> exectueLogDict)
         {
@@ -17,41 +16,34 @@ namespace Damienbod.Slab.Loggers
             exectueLogDict.Add(GlobalType.GlobalWarning, Warning);
         }
 
-        [Event(GlobalType.GlobalCritical, Message = "Global Critical: {0}", Level = EventLevel.Critical)]
         public void Critical(string message)
         {
-            
-            if (IsEnabled()) WriteEvent(GlobalType.GlobalCritical, message);
+            GlobalEvents.Log.Critical(message);
         }
 
-        [Event(GlobalType.GlobalError, Message = "Global Error {0}", Level = EventLevel.Error)]
         public void Error(string message)
         {
-            if (IsEnabled()) WriteEvent(GlobalType.GlobalError, message);
+            GlobalEvents.Log.Error(message);
         }
 
-        [Event(GlobalType.GlobalInformational, Message = "Global Informational {0}", Level = EventLevel.Informational)]
         public void Informational(string message)
         {
-            if (IsEnabled()) WriteEvent(GlobalType.GlobalInformational, message);
+            GlobalEvents.Log.Informational(message);
         }
 
-        [Event(GlobalType.GlobalLogAlways, Message = "Global LogAlways {0}", Level = EventLevel.LogAlways)]
         public void LogAlways(string message)
         {
-            if (IsEnabled()) WriteEvent(GlobalType.GlobalLogAlways, message);
+            GlobalEvents.Log.LogAlways(message);
         }
 
-        [Event(GlobalType.GlobalVerbose, Message = "Global Verbose {0}", Level = EventLevel.Verbose)]
         public void Verbose(string message)
         {
-            if (IsEnabled()) WriteEvent(GlobalType.GlobalVerbose, message);
+            GlobalEvents.Log.Verbose(message);
         }
 
-        [Event(GlobalType.GlobalWarning, Message = "Global Warning {0}", Level = EventLevel.Warning)]
         public void Warning(string message)
         {
-            if (IsEnabled()) WriteEvent(GlobalType.GlobalWarning, message);
+            GlobalEvents.Log.Warning(message);
         }
     }
 

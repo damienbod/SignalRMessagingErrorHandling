@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using Damienbod.Slab.Events;
 
 namespace Damienbod.Slab.Loggers
 {
@@ -17,40 +18,34 @@ namespace Damienbod.Slab.Loggers
             exectueLogDict.Add(WebType.ControllerWarning, Warning);
         }
 
-        [Event(WebType.ControllerCritical, Message = "Controller Critical: {0}", Level = EventLevel.Critical)]
         public void Critical(string message)
         {
-            if (IsEnabled()) WriteEvent(WebType.ControllerCritical, message);
+            ControllerEvents.Log.Critical(message);
         }
 
-        [Event(WebType.ControllerError, Message = "Controller Error {0}", Level = EventLevel.Error)]
         public void Error(string message)
         {
-            if (IsEnabled()) WriteEvent(WebType.ControllerError, message);
+            ControllerEvents.Log.Error(message);
         }
 
-        [Event(WebType.ControllerInformational, Message = "Controller Informational {0}", Level = EventLevel.Informational)]
         public void Informational(string message)
         {
-            if (IsEnabled()) WriteEvent(WebType.ControllerInformational, message);
+            ControllerEvents.Log.Informational(message);
         }
 
-        [Event(WebType.ControllerLogAlways, Message = "Controller LogAlways {0}", Level = EventLevel.LogAlways)]
         public void LogAlways(string message)
         {
-            if (IsEnabled()) WriteEvent(WebType.ControllerLogAlways, message);
+            ControllerEvents.Log.LogAlways(message);
         }
 
-        [Event(WebType.ControllerVerbose, Message = "Controller Verbose {0}", Level = EventLevel.Verbose)]
         public void Verbose(string message)
         {
-            if (IsEnabled()) WriteEvent(WebType.ControllerVerbose, message);
+            ControllerEvents.Log.Verbose(message);
         }
 
-        [Event(WebType.ControllerWarning, Message = "Controller Warning {0}", Level = EventLevel.Warning)]
         public void Warning(string message)
         {
-            if (IsEnabled()) WriteEvent(WebType.ControllerWarning, message);
+            ControllerEvents.Log.Warning(message);
         }
     }
 

@@ -82,7 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration.cs" />
+    <Compile Include="MyConfiguration.cs" />
     <Compile Include="Service\MyHub.cs" />
     <Compile Include="Service\MyHubServer.cs" />
     <Compile Include="Program.cs" />

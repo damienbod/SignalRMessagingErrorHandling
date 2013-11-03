@@ -9,12 +9,13 @@ namespace Damienbod.SignalR.Host.Service
     public class MyHub : IMyHub
     {
         private readonly ISlabLogger _slabLogger;
-
         private readonly IHubContext _hubContext;
 
         public MyHub(ISlabLogger slabLogger)
         {
             _slabLogger = slabLogger;
+
+            // TODO replace with IoC resolve, problem with SignalR DependenyResolver 
             _hubContext = GlobalHost.ConnectionManager.GetHubContext<MyHubServer>(); 
         }
         

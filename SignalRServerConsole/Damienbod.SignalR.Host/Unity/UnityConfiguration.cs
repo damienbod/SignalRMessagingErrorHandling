@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Damienbod.SignalR.Host.Service;
 using Damienbod.SignalR.MyHub;
 using Damienbod.Slab;
 using Microsoft.AspNet.SignalR.Infrastructure;
@@ -48,11 +49,6 @@ namespace Damienbod.SignalR.Host.Unity
 
             container.RegisterType<ISlabLogger, HubLogger>();
             container.RegisterType<IMyHub, Service.MyHub>();
-
-            //Missing types
-            //Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager
-            //Microsoft.AspNet.SignalR.Hubs.IJavaScriptProxyGenerator
-          
 
             //container.RegisterType(typeof(Startup));
 

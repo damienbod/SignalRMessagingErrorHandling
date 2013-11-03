@@ -8,20 +8,20 @@
     /// the application. All values read from the App.Config
     /// are got or set using this class.
     /// </summary>
-    public class Configuration
+    public class MyConfiguration
     {
         private readonly AppSettingsReader configurationAppSettings;
 
         /// <summary>
         /// Implementation of the sigleton pattern
         /// </summary>
-        private static Configuration instance;
+        private static MyConfiguration instance;
      
         /// <summary>
-        /// Initializes a new instance of the <see cref="Configuration"/> class. 
+        /// Initializes a new instance of the <see cref="MyConfiguration"/> class. 
         /// default constructor
         /// </summary>
-        public Configuration()
+        public MyConfiguration()
         {
             this.configurationAppSettings = new System.Configuration.AppSettingsReader();
         }
@@ -30,11 +30,11 @@
         /// Singleton pattern constructor
         /// </summary>
         /// <returns>Configuration</returns>
-        public static Configuration GetInstance()
+        public static MyConfiguration GetInstance()
         {
             if (instance == null)
             {
-                instance = new Configuration();
+                instance = new MyConfiguration();
             }
 
             return instance;

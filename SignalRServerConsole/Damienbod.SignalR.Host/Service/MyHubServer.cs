@@ -1,53 +1,56 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Damienbod.SignalR.Host.Unity;
 using Damienbod.SignalR.MyHub.Dto;
 using Damienbod.Slab;
 using Microsoft.AspNet.SignalR;
+using Microsoft.Practices.Unity;
 
 namespace Damienbod.SignalR.Host.Service
 {
     public class MyHubServer : Hub
     {
-        //private readonly ISlabLogger _slabLogger;
+        private readonly ISlabLogger _slabLogger;
 
-        //public MyHubServer(ISlabLogger slabLogger)
-        //{
-        //    _slabLogger = slabLogger;
-        //}
+        public MyHubServer()
+        {
+            // TODO replace with contructor injectoion, problem with SignalR DependencyResolver
+            _slabLogger = UnityConfiguration.GetConfiguredContainer().Resolve<ISlabLogger>();
+        }
 
         public void AddMessage(string name, string message)
         {
-            Console.WriteLine("Hub AddMessage {0} {1}\n", name, message);
+            _slabLogger.Log(HubType.HubServerVerbose, "Hub Sending AddMessage " + name  + " " + message);
             Clients.All.addMessage(name, message);
         }
 
         public void Heartbeat()
         {
-            Console.WriteLine("Hub Heartbeat\n");
+            _slabLogger.Log(HubType.HubServerVerbose, "Hub Sending Heartbeat");
             Clients.All.heartbeat();
         }
 
         public void SendHelloObject(HelloModel hello)
         {
-            Console.WriteLine("Hub hello {0} {1}\n", hello.Molly, hello.Age );
+            _slabLogger.Log(HubType.HubServerVerbose, "Hub Sending SendHelloObject " + hello.Molly + " " + hello.Age);
             Clients.All.sendHelloObject(hello);
         }
 
         public override Task OnConnected()
         {
-            Console.WriteLine("Hub OnConnected {0}\n", Context.ConnectionId);
+            _slabLogger.Log(HubType.HubServerVerbose, "Hub OnConnected" + Context.ConnectionId);
             return (base.OnConnected());
         }
 
         public override Task OnDisconnected()
         {
-            Console.WriteLine("Hub OnDisconnected {0}\n", Context.ConnectionId);
+            _slabLogger.Log(HubType.HubServerVerbose, "Hub OnDisconnected" + Context.ConnectionId);
             return (base.OnDisconnected());
         }
 
         public override Task OnReconnected()
         {
-            Console.WriteLine("Hub OnReconnected {0}\n", Context.ConnectionId);
+            _slabLogger.Log(HubType.HubServerVerbose, "Hub OnReconnected" + Context.ConnectionId);
             return (base.OnDisconnected());
         }
     }

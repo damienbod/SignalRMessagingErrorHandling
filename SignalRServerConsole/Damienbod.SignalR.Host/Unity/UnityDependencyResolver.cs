@@ -9,43 +9,43 @@ namespace Damienbod.SignalR.Host.Unity
     /// <summary>
     /// An implementation of the <see cref="IDependencyResolver"/> interface that wraps a Unity container.
     /// </summary>
-    public sealed class UnityDependencyResolver : Microsoft.AspNet.SignalR.IDependencyResolver
-
+    public sealed class UnityDependencyResolver : DefaultDependencyResolver
     {
         private readonly IUnityContainer _container;
 
         public UnityDependencyResolver(IUnityContainer container)
         {
             _container = container;
+            
         }
 
         #region IDependencyResolver Members
 
-        public object GetService(Type serviceType)
+        public override object GetService(Type serviceType)
         {
-            return _container.Resolve(serviceType);
+            try
+            {
+                return _container.Resolve(serviceType);
+            }
+            catch
+            {
+                return base.GetService(serviceType);
+            }
         }
 
-        public  IEnumerable<object> GetServices(Type serviceType)
+        public override IEnumerable<object> GetServices(Type serviceType)
         {
-            return _container.ResolveAll(serviceType);
-        }
-
-        public void Register(Type serviceType, Func<object> activator)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Register(Type serviceType, IEnumerable<Func<object>> activators)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                return _container.ResolveAll(serviceType);
+            }
+            catch
+            {
+                return base.GetServices(serviceType);
+            }
         }
 
         #endregion
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

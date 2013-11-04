@@ -51,7 +51,7 @@ namespace Damienbod.SignalR.Host.Service
         public override Task OnReconnected()
         {
             _slabLogger.Log(HubType.HubServerVerbose, "Hub OnReconnected" + Context.ConnectionId);
-            return (base.OnDisconnected());
+            return (base.OnReconnected());
         }
     }
 }

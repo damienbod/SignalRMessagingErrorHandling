@@ -1,4 +1,5 @@
 ﻿using System;
+using Damienbod.SignalR.Host.Service;
 using Damienbod.SignalR.Host.Unity;
 using Damienbod.SignalR.MyHub;
 using Damienbod.SignalR.MyHub.Dto;
@@ -20,7 +21,8 @@ namespace Damienbod.SignalR.Host
         {
             // TODO setup IoC container, problem with Hub resolve
             GlobalHost.DependencyResolver = new DefaultDependencyResolver(); //new UnityDependencyResolver(UnityConfiguration.GetConfiguredContainer());
-   
+            GlobalHost.HubPipeline.AddModule(new LoggingPipelineModule());
+
             var url = MyConfiguration.GetInstance().MyHubServiceUrl();
             _myHub = UnityConfiguration.GetConfiguredContainer().Resolve<IMyHub>();
 

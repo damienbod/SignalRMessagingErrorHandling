@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyConfiguration.cs" />
+    <Compile Include="Service\LoggingPipelineModule.cs" />
     <Compile Include="Service\MyHub.cs" />
     <Compile Include="Service\MyHubServer.cs" />
     <Compile Include="Program.cs" />

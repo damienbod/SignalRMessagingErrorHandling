@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Damienbod.SignalR.Host.Service;
 using Damienbod.SignalR.MyHub;
 using Damienbod.Slab;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using Microsoft.Practices.Unity;
 
 namespace Damienbod.SignalR.Host.Unity

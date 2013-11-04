@@ -14,7 +14,6 @@ namespace Damienbod.SignalR.Host.Service
 
         public MyHubServer()
         {
-            // TODO replace with contructor injectoion, problem with SignalR DependencyResolver
             _slabLogger = UnityConfiguration.GetConfiguredContainer().Resolve<ISlabLogger>();
         }
 

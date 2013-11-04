@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Damienbod.SignalR.Host.Unity;
 using Damienbod.Slab;
 using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.Practices.Unity;
 
 namespace Damienbod.SignalR.Host.Service
 {
@@ -15,7 +11,7 @@ namespace Damienbod.SignalR.Host.Service
 
         public ErrorHandlingPipelineModule()
         {
-            _slabLogger = new HubLogger();
+            _slabLogger = UnityConfiguration.GetConfiguredContainer().Resolve<ISlabLogger>();
         }
 
         protected override void OnIncomingError(ExceptionContext ex, IHubIncomingInvokerContext context)

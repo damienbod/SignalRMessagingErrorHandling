@@ -7,6 +7,7 @@ using Microsoft.Practices.Unity;
 namespace Damienbod.SignalR.Host.Unity
 {
     /// <summary>
+    /// NOT USED DUE TO SIGNALR DEPENDENCYRESOLVER PROBLEM !!! TODO !!!
     /// An implementation of the <see cref="IDependencyResolver"/> interface that wraps a Unity container.
     /// </summary>
     public sealed class UnityDependencyResolver : DefaultDependencyResolver

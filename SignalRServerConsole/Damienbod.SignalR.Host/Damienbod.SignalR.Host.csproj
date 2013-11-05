@@ -90,7 +90,7 @@
     <Compile Include="Service\ErrorHandlingPipelineModule.cs" />
     <Compile Include="Service\LoggingPipelineModule.cs" />
     <Compile Include="Service\MyHub.cs" />
-    <Compile Include="Service\MyHubServer.cs" />
+    <Compile Include="Hubs\HubSync.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unity\UnityHubActivator.cs" />
@@ -113,6 +113,7 @@
       <Name>Damienbod.SignalR.MyHub</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

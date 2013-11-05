@@ -48,19 +48,21 @@
   <ItemGroup>
     <Compile Include="Events\ControllerEvents.cs" />
     <Compile Include="Events\HubServerEvents.cs" />
-    <Compile Include="HubLogger.cs" />
-    <Compile Include="ISlabLogger.cs" />
+    <Compile Include="Services\HubLogger.cs" />
+    <Compile Include="Services\IHubLogger.cs" />
+    <Compile Include="Services\IWebLogger.cs" />
     <Compile Include="Loggers\ControllerLogger.cs" />
     <Compile Include="Loggers\HubServerLogger.cs" />
     <Compile Include="LogType.cs" />
     <Compile Include="Events\GlobalEvents.cs" />
-    <Compile Include="WebLogger.cs" />
+    <Compile Include="Services\WebLogger.cs" />
     <Compile Include="Loggers\GlobalLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

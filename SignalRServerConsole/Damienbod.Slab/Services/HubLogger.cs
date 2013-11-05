@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Damienbod.Slab.Loggers;
 
-namespace Damienbod.Slab
+namespace Damienbod.Slab.Services
 {
-    public class HubLogger : ISlabLogger
+    public class HubLogger : IHubLogger
     {
         public HubLogger()
         {

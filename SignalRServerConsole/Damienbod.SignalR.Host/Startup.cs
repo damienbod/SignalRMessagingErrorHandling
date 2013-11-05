@@ -4,6 +4,7 @@ using Damienbod.SignalR.Host.Unity;
 using Damienbod.SignalR.MyHub;
 using Damienbod.SignalR.MyHub.Dto;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Hosting;
 using Microsoft.Owin;
@@ -19,11 +20,10 @@ namespace Damienbod.SignalR.Host
 
         public static void Start()
         {
-            // TODO setup IoC container, problem with Hub resolve
-            GlobalHost.DependencyResolver = new DefaultDependencyResolver(); //new UnityDependencyResolver(UnityConfiguration.GetConfiguredContainer());
+            GlobalHost.DependencyResolver.Register(typeof(IHubActivator), () => new UnityHubActivator(UnityConfiguration.GetConfiguredContainer())); 
             GlobalHost.HubPipeline.AddModule(new LoggingPipelineModule());
             GlobalHost.HubPipeline.AddModule(new ErrorHandlingPipelineModule());
-
+            
             var url = MyConfiguration.GetInstance().MyHubServiceUrl();
             _myHub = UnityConfiguration.GetConfiguredContainer().Resolve<IMyHub>();
 

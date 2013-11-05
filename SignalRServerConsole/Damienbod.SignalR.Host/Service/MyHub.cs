@@ -3,6 +3,7 @@ using Damienbod.SignalR.MyHub;
 using Damienbod.SignalR.MyHub.Dto;
 using Damienbod.Slab;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Infrastructure;
 
 namespace Damienbod.SignalR.Host.Service
 {
@@ -11,9 +12,12 @@ namespace Damienbod.SignalR.Host.Service
         private readonly ISlabLogger _slabLogger;
         private readonly IHubContext _hubContext;
 
-        public MyHub(ISlabLogger slabLogger)
+        private readonly MyHubServer _myHubServer;
+
+        public MyHub(ISlabLogger slabLogger, MyHubServer myHubServer)
         {
             _slabLogger = slabLogger;
+            _myHubServer = myHubServer;
 
             // TODO replace with IoC resolve, problem with SignalR DependenyResolver 
             _hubContext = GlobalHost.ConnectionManager.GetHubContext<MyHubServer>(); 

@@ -12,9 +12,9 @@ namespace Damienbod.SignalR.Host.Service
     {
         private readonly ISlabLogger _slabLogger;
 
-        public MyHubServer()
+        public MyHubServer(ISlabLogger slabLogger)
         {
-            _slabLogger = UnityConfiguration.GetConfiguredContainer().Resolve<ISlabLogger>();
+            _slabLogger = slabLogger;
         }
 
         public void AddMessage(string name, string message)

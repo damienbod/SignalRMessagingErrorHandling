@@ -47,8 +47,10 @@ namespace Damienbod.SignalR.Host.Unity
 
             container.RegisterType<IHubLogger, HubLogger>(new ContainerControlledLifetimeManager());
             container.RegisterType<IMyHub, Service.MyHub>(new ContainerControlledLifetimeManager());
-            container.RegisterType<HubSync, HubSync>(new ContainerControlledLifetimeManager());
-            container.RegisterType<Hub, Hub>(new ContainerControlledLifetimeManager());
+
+            // Hub must be transient see signalr docs
+            container.RegisterType<HubSync, HubSync>(new TransientLifetimeManager());
+            container.RegisterType<Hub, Hub>(new TransientLifetimeManager());
             container.RegisterType<IHubActivator, UnityHubActivator>(new ContainerControlledLifetimeManager());
         }
     }

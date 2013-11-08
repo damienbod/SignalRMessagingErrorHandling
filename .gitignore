@@ -16,3 +16,6 @@ SignalRServerConsole/Damienbod.SignalR.Host/obj
 SignalRServerConsole/Damienbod.SignalR.MyHub/bin
 SignalRServerConsole/Damienbod.SignalR.MyHub/obj
 SignalRServerConsole/Damienbod.Slab/Damienbod.Slab.csproj.user
+SignalRClientConsole/SignalRClientConsole/bin
+SignalRClientConsole/SignalRClientConsole/obj
+SignalRClientConsole/SignalRClientConsole.v12.suo

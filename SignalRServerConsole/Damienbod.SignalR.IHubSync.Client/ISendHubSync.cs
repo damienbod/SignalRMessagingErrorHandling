@@ -1,13 +1,14 @@
-﻿using Damienbod.SignalR.MyHub.Dto;
+﻿using Damienbod.SignalR.IHubSync.Client.Dto;
 
-namespace Damienbod.SignalR.MyHub
+namespace Damienbod.SignalR.IHubSync.Client
 {
-    public interface IMyHub
+    public interface ISendHubSync
     {
         void AddMessage(string name, string message);
 
         void Heartbeat();
 
         void SendHelloObject(HelloModel hello);
+
     }
 }

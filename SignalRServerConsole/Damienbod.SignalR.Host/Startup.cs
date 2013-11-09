@@ -1,8 +1,8 @@
 ﻿using System;
 using Damienbod.SignalR.Host.Service;
 using Damienbod.SignalR.Host.Unity;
-using Damienbod.SignalR.MyHub;
-using Damienbod.SignalR.MyHub.Dto;
+using Damienbod.SignalR.IHubSync.Client;
+using Damienbod.SignalR.IHubSync.Client.Dto;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.Owin.Cors;
@@ -16,7 +16,7 @@ namespace Damienbod.SignalR.Host
 {
     public class Startup
     {
-        private static IMyHub _myHub;
+        private static ISendHubSync _myHub;
 
         public static void Start()
         {
@@ -25,7 +25,7 @@ namespace Damienbod.SignalR.Host
             GlobalHost.HubPipeline.AddModule(new ErrorHandlingPipelineModule());
             
             var url = MyConfiguration.GetInstance().MyHubServiceUrl();
-            _myHub = UnityConfiguration.GetConfiguredContainer().Resolve<IMyHub>();
+            _myHub = UnityConfiguration.GetConfiguredContainer().Resolve<ISendHubSync>();
 
             using (WebApp.Start(url))
             {

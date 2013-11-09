@@ -19,3 +19,5 @@ SignalRServerConsole/Damienbod.Slab/Damienbod.Slab.csproj.user
 SignalRClientConsole/SignalRClientConsole/bin
 SignalRClientConsole/SignalRClientConsole/obj
 SignalRClientConsole/SignalRClientConsole.v12.suo
+SignalRServerConsole/Damienbod.SignalR.IHubSync.Client/bin
+SignalRServerConsole/Damienbod.SignalR.IHubSync.Client/obj

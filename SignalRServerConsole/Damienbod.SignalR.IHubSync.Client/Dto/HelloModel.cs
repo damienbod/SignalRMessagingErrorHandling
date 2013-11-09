@@ -1,4 +1,4 @@
-﻿namespace Damienbod.SignalR.MyHub.Dto
+﻿namespace Damienbod.SignalR.IHubSync.Client.Dto
 {
     public class HelloModel
     {

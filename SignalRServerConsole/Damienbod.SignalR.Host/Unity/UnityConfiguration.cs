@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Damienbod.SignalR.Host.Hubs;
-using Damienbod.SignalR.MyHub;
+using Damienbod.SignalR.IHubSync.Client;
 using Damienbod.Slab.Services;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -46,7 +46,7 @@ namespace Damienbod.SignalR.Host.Unity
             var myAssemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("Damienbod")).ToArray();
 
             container.RegisterType<IHubLogger, HubLogger>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IMyHub, Service.MyHub>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ISendHubSync, Service.SendHubSync>(new ContainerControlledLifetimeManager());
 
             // Hub must be transient see signalr docs
             container.RegisterType<HubSync, HubSync>(new TransientLifetimeManager());

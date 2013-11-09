@@ -1,18 +1,18 @@
 ﻿using Damienbod.SignalR.Host.Hubs;
-using Damienbod.SignalR.MyHub;
-using Damienbod.SignalR.MyHub.Dto;
+using Damienbod.SignalR.IHubSync.Client;
+using Damienbod.SignalR.IHubSync.Client.Dto;
 using Damienbod.Slab;
 using Damienbod.Slab.Services;
 using Microsoft.AspNet.SignalR;
 
 namespace Damienbod.SignalR.Host.Service
 {
-    public class MyHub : IMyHub
+    public class SendHubSync : ISendHubSync
     {
         private readonly IHubLogger _slabLogger;
         private readonly IHubContext _hubContext;
 
-        public MyHub(IHubLogger slabLogger)
+        public SendHubSync(IHubLogger slabLogger)
         {
             _slabLogger = slabLogger;
             _hubContext = GlobalHost.ConnectionManager.GetHubContext<HubSync>(); 

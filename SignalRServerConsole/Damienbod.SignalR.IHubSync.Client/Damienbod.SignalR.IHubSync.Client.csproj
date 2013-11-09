@@ -7,8 +7,8 @@
     <ProjectGuid>{11B4280B-E204-484B-BEFB-C175582E75C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Damienbod.SignalR.MyHub</RootNamespace>
-    <AssemblyName>Damienbod.SignalR.MyHub</AssemblyName>
+    <RootNamespace>Damienbod.SignalR.IHubSync.Client</RootNamespace>
+    <AssemblyName>Damienbod.SignalR.IHubSync.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,7 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\HelloModel.cs" />
-    <Compile Include="IMyHub.cs" />
+    <Compile Include="IRecieveHubSync.cs" />
+    <Compile Include="ISendHubSync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

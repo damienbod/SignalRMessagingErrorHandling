@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Damienbod.SignalR.MyHub.Dto;
+using Damienbod.SignalR.IHubSync.Client.Dto;
 using Damienbod.Slab;
 using Damienbod.Slab.Services;
 using Microsoft.AspNet.SignalR;

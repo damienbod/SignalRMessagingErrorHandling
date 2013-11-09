@@ -1,5 +1,5 @@
 ﻿using System;
-using Damienbod.SignalR.MyHub.Dto;
+using Damienbod.SignalR.IHubSync.Client.Dto;
 using SignalRClientConsole.HubClients;
 
 namespace SignalRClientConsole

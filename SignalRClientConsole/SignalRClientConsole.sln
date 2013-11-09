@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRClientConsole", "SignalRClientConsole\SignalRClientConsole.csproj", "{0C5B42A8-8FBB-41F6-9D08-90BFBA0FC62D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damienbod.SignalR.MyHub", "..\SignalRServerConsole\Damienbod.SignalR.MyHub\Damienbod.SignalR.MyHub.csproj", "{11B4280B-E204-484B-BEFB-C175582E75C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Damienbod.SignalR.IHubSync.Client", "..\SignalRServerConsole\Damienbod.SignalR.IHubSync.Client\Damienbod.SignalR.IHubSync.Client.csproj", "{11B4280B-E204-484B-BEFB-C175582E75C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

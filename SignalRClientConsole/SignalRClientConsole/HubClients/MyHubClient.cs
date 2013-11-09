@@ -1,11 +1,11 @@
 ﻿using System;
-using Damienbod.SignalR.MyHub;
-using Damienbod.SignalR.MyHub.Dto;
+using Damienbod.SignalR.IHubSync.Client;
+using Damienbod.SignalR.IHubSync.Client.Dto;
 using Microsoft.AspNet.SignalR.Client;
 
 namespace SignalRClientConsole.HubClients
 {
-    public class MyHubClient : IMyHub
+    public class MyHubClient : ISendHubSync, IRecieveHubSync
     {
         private readonly HubConnection _hubConnection;
         private readonly IHubProxy _myHubProxy;
@@ -20,24 +20,24 @@ namespace SignalRClientConsole.HubClients
 
             _myHubProxy = _hubConnection.CreateHubProxy("Hubsync");
 
-            _myHubProxy.On<string, string>("addMessage", Recieved_AddMessage);
-            _myHubProxy.On("heartbeat", Recieved_Heartbeat);
-            _myHubProxy.On<HelloModel>("sendHelloObject", Recieved_SendHelloObject);
+            _myHubProxy.On<string, string>("addMessage", Recieve_AddMessage);
+            _myHubProxy.On("heartbeat", Recieve_Heartbeat);
+            _myHubProxy.On<HelloModel>("sendHelloObject", Recieve_SendHelloObject);
 
             StartHub();
         }
 
-        public void Recieved_AddMessage(string name, string message)
+        public void Recieve_AddMessage(string name, string message)
         {
             Console.Write("Recieved addMessage: " + name + ": " + message + "\n");
         }
 
-        public void Recieved_Heartbeat()
+        public void Recieve_Heartbeat()
         {
             Console.Write("Recieved heartbeat \n");
         }
 
-        public void Recieved_SendHelloObject(HelloModel hello)
+        public void Recieve_SendHelloObject(HelloModel hello)
         {
             Console.Write("Recieved sendHelloObject {0}, {1} \n", hello.Molly, hello.Age);
         }
@@ -85,5 +85,6 @@ namespace SignalRClientConsole.HubClients
         {
             _hubConnection.Start().Wait();
         }
+
     }
 }

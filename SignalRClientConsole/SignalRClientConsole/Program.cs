@@ -2,6 +2,7 @@
 using Damienbod.SignalR.IHubSync.Client.Dto;
 using Microsoft.AspNet.SignalR.Client;
 using SignalRClientConsole.HubClients;
+using SignalRClientConsole.Logging;
 
 namespace SignalRClientConsole
 {
@@ -9,7 +10,7 @@ namespace SignalRClientConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Starting client  http://localhost:8089");
+            Console.WriteLine("Starting client  http://localhost:8089");      
             var myHubClient = new MyHubClient();
             
             while (true)
@@ -23,7 +24,7 @@ namespace SignalRClientConsole
                     }
                     else
                     {
-                        Console.WriteLine("Can't send message, connectionState= " + myHubClient.State);
+                        HubClientEvents.Log.Warning("Can't send message, connectionState= " + myHubClient.State);
                     }
                     
                 }
@@ -35,7 +36,7 @@ namespace SignalRClientConsole
                     }
                     else
                     {
-                        Console.WriteLine("Can't send message, connectionState= " + myHubClient.State);
+                        HubClientEvents.Log.Warning("Can't send message, connectionState= " + myHubClient.State);
                     }
                     
                 }
@@ -48,17 +49,19 @@ namespace SignalRClientConsole
                     }
                     else
                     {
-                        Console.WriteLine("Can't send message, connectionState= " + myHubClient.State);
+                        HubClientEvents.Log.Warning("Can't send message, connectionState= " + myHubClient.State);
                     }
                     
                 }
                 if (key.ToUpper() == "T")
                 {
                     myHubClient.CloseHub();
+                    HubClientEvents.Log.Informational("Closed Hub");
                 }
                 if (key.ToUpper() == "Z")
                 {
                     myHubClient.StartHub();
+                    HubClientEvents.Log.Informational("Started the Hub");
                 }
                 if (key.ToUpper() == "C")
                 {

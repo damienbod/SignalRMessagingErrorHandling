@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="HubClients\BaseHubClient.cs" />
     <Compile Include="HubClients\MyHubClient.cs" />
+    <Compile Include="Logging\HubClientEvents.cs" />
+    <Compile Include="Logging\LogType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

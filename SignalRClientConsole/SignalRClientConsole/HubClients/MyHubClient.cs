@@ -2,6 +2,7 @@
 using Damienbod.SignalR.IHubSync.Client;
 using Damienbod.SignalR.IHubSync.Client.Dto;
 using Microsoft.AspNet.SignalR.Client;
+using SignalRClientConsole.Logging;
 
 namespace SignalRClientConsole.HubClients
 {
@@ -36,17 +37,17 @@ namespace SignalRClientConsole.HubClients
 
         public void Recieve_AddMessage(string name, string message)
         {
-            Console.Write("Recieved addMessage: " + name + ": " + message + "\n");
+            HubClientEvents.Log.Informational("Recieved addMessage: " + name + ": " + message);
         }
 
         public void Recieve_Heartbeat()
         {
-            Console.Write("Recieved heartbeat \n");
+            HubClientEvents.Log.Informational("Recieved heartbeat ");
         }
 
         public void Recieve_SendHelloObject(HelloModel hello)
-        {
-            Console.Write("Recieved sendHelloObject {0}, {1} \n", hello.Molly, hello.Age);
+        {         
+            HubClientEvents.Log.Informational("Recieved sendHelloObject "+ hello.Molly + ", " + hello.Age);
         }
 
         public void AddMessage(string name, string message)
@@ -55,11 +56,11 @@ namespace SignalRClientConsole.HubClients
             {
                 if (task.IsFaulted)
                 {
-                    Console.WriteLine("!!! There was an error opening the connection:{0} \n", task.Exception.GetBaseException());
+                    HubClientEvents.Log.Error("There was an error opening the connection:" + task.Exception.GetBaseException());
                 }
 
             }).Wait();
-            Console.WriteLine("Client Sending addMessage to server\n");
+            HubClientEvents.Log.Informational("Client Sending addMessage to server");
         }
 
         public void Heartbeat()
@@ -68,11 +69,11 @@ namespace SignalRClientConsole.HubClients
             {
                 if (task.IsFaulted)
                 {
-                    Console.WriteLine("There was an error opening the connection:{0}", task.Exception.GetBaseException());
+                    HubClientEvents.Log.Error("There was an error opening the connection:" + task.Exception.GetBaseException());
                 }
 
             }).Wait();
-            Console.WriteLine("client heartbeat sent to server\n");
+            HubClientEvents.Log.Informational("Client heartbeat sent to server");
         }
 
         public void SendHelloObject(HelloModel hello)
@@ -81,11 +82,11 @@ namespace SignalRClientConsole.HubClients
             {
                 if (task.IsFaulted)
                 {
-                    Console.WriteLine("There was an error opening the connection:{0}", task.Exception.GetBaseException());
+                    HubClientEvents.Log.Error("There was an error opening the connection:" + task.Exception.GetBaseException());
                 }
 
             }).Wait();
-            Console.WriteLine("client sendHelloObject sent to server\n");
+            HubClientEvents.Log.Informational("Client sendHelloObject sent to server");
         }
 
 

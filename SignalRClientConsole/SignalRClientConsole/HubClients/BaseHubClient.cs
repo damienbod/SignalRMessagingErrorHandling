@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNet.SignalR.Client;
+using SignalRClientConsole.Logging;
 
 namespace SignalRClientConsole.HubClients
 {
@@ -53,7 +54,7 @@ namespace SignalRClientConsole.HubClients
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                HubClientEvents.Log.Warning(ex.Message + " " +  ex.StackTrace);
             }
 
         }
@@ -62,37 +63,37 @@ namespace SignalRClientConsole.HubClients
 
         void _hubConnection_Closed()
         {
-            Console.Write("+++++++ _hubConnection_Closed \n");
+            HubClientEvents.Log.ClientEvents( "_hubConnection_Closed New State:" +  _hubConnection.State + " " + _hubConnection.ConnectionId );
         }
 
         void _hubConnection_ConnectionSlow()
         {
-            Console.Write("+++++++ _hubConnection_ConnectionSlow \n");
+            HubClientEvents.Log.ClientEvents("_hubConnection_ConnectionSlow New State:" + _hubConnection.State + " " + _hubConnection.ConnectionId);
         }
 
         void _hubConnection_Error(Exception obj)
         {
-            Console.Write("+++++++ _hubConnection_Error \n");
+            HubClientEvents.Log.ClientEvents("_hubConnection_Error New State:" + _hubConnection.State + " " + _hubConnection.ConnectionId);
         }
 
         void _hubConnection_StateChanged(StateChange obj)
         {
-            Console.Write("+++++++ _hubConnection_StateChanged \n");
+            HubClientEvents.Log.ClientEvents("_hubConnection_StateChanged New State:" + _hubConnection.State + " " + _hubConnection.ConnectionId);
         }
 
         void _hubConnection_Reconnecting()
         {
-            Console.Write("+++++++ _hubConnection_Reconnecting \n");
+            HubClientEvents.Log.ClientEvents("_hubConnection_Reconnecting New State:" + _hubConnection.State + " " + _hubConnection.ConnectionId);
         }
 
         void _hubConnection_Reconnected()
         {
-            Console.Write("+++++++ _hubConnection_Reconnected \n");
+            HubClientEvents.Log.ClientEvents("_hubConnection_Reconnected New State:" + _hubConnection.State + " " + _hubConnection.ConnectionId);
         }
 
         void _hubConnection_Received(string obj)
         {
-            Console.Write("+++++++ _hubConnection_Received \n");
+            HubClientEvents.Log.ClientEvents("_hubConnection_Received New State:" + _hubConnection.State + " " + _hubConnection.ConnectionId);
         }
     }
 }

@@ -5,26 +5,33 @@ using Microsoft.AspNet.SignalR.Client;
 
 namespace SignalRClientConsole.HubClients
 {
-    public class MyHubClient : ISendHubSync, IRecieveHubSync
+    public class MyHubClient : BaseHubClient, ISendHubSync, IRecieveHubSync
     {
-        private readonly HubConnection _hubConnection;
-        private readonly IHubProxy _myHubProxy;
-
         public MyHubClient()
         {
-            _hubConnection = new HubConnection("http://localhost:8089/")
-            {
-                TraceLevel = TraceLevels.All,
-                TraceWriter = Console.Out
-            };
+            Init();
+        }
 
-            _myHubProxy = _hubConnection.CreateHubProxy("Hubsync");
+        public new void Init()
+        {
+            HubConnectionUrl = "http://localhost:8089/";
+            HubProxyName = "Hubsync";
+            HubTraceLevel = TraceLevels.None;
+            HubTraceWriter = Console.Out;
+
+            base.Init();
 
             _myHubProxy.On<string, string>("addMessage", Recieve_AddMessage);
             _myHubProxy.On("heartbeat", Recieve_Heartbeat);
             _myHubProxy.On<HelloModel>("sendHelloObject", Recieve_SendHelloObject);
 
-            StartHub();
+            StartHubInternal();
+        }
+
+        public override void StartHub()
+        {
+            _hubConnection.Dispose();
+            Init();
         }
 
         public void Recieve_AddMessage(string name, string message)
@@ -81,10 +88,6 @@ namespace SignalRClientConsole.HubClients
             Console.WriteLine("client sendHelloObject sent to server\n");
         }
 
-        private void StartHub()
-        {
-            _hubConnection.Start().Wait();
-        }
 
     }
 }

@@ -32,8 +32,12 @@ namespace SignalRClientWPF
             _vm = new MainViewModel( new SignalRHubSync());
             this.DataContext = _vm;
             _vm.Load();
+
+            MyColor = System.Windows.Media.Colors.Blue;
         }
 
+        public System.Windows.Media.Color MyColor { get; set; }
+        
 
         //private async void ActionHeartbeatButtonClick(object sender, RoutedEventArgs e)
         //{

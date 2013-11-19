@@ -36,6 +36,7 @@ namespace PortableSignalR.ViewModel
             ConnectSignalR = new DelegateCommand(OnConnectSignalRExecute, OnConnectSignalRCanExecute);
         }
 
+
         private bool OnDisconnectSignalRCanExecute(object obj)
         {
             return ConnectionActive;
@@ -63,7 +64,7 @@ namespace PortableSignalR.ViewModel
 
         private bool OnSendObjectCanExecute(object obj)
         {
-            return !string.IsNullOrWhiteSpace(MollyText) && AgeText > 0;
+            return !string.IsNullOrWhiteSpace(MollyText) && AgeText > 0 && ConnectionActive; 
         }
 
         private void OnSendObjectExecute(object obj)
@@ -76,7 +77,7 @@ namespace PortableSignalR.ViewModel
 
         private bool OnSendHeartbeatCanExecute(object obj)
         {
-            return true;
+            return ConnectionActive;
         }
 
         private void OnSendHeartbeatExecute(object obj)
@@ -87,7 +88,7 @@ namespace PortableSignalR.ViewModel
 
         private bool OnAddMessageCanExecute(object obj)
         {
-            return !string.IsNullOrWhiteSpace(MessageText) && !string.IsNullOrWhiteSpace(NameText);
+            return !string.IsNullOrWhiteSpace(MessageText) && !string.IsNullOrWhiteSpace(NameText) && ConnectionActive;
         }
 
         private void OnAddMessageExecute(object obj)
@@ -146,6 +147,9 @@ namespace PortableSignalR.ViewModel
                 SetProperty(ref _connectionActive, value);
                 DisconnectSignalR.RaiseCanExecuteChanged();
                 ConnectSignalR.RaiseCanExecuteChanged();
+                AddMessageCommand.RaiseCanExecuteChanged();
+                SendObjectCommand.RaiseCanExecuteChanged();
+                SendHeartbeatCommand.RaiseCanExecuteChanged();
             }
         }
     }

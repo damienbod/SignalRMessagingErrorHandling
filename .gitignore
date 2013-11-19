@@ -21,3 +21,8 @@ SignalRClientConsole/SignalRClientConsole/obj
 SignalRClientConsole/SignalRClientConsole.v12.suo
 SignalRServerConsole/Damienbod.SignalR.IHubSync.Client/bin
 SignalRServerConsole/Damienbod.SignalR.IHubSync.Client/obj
+SignalRClientWPF/PortableSignalR/obj
+SignalRClientWPF/PortableSignalR/bin
+SignalRClientWPF/SignalRDataProvider/obj
+SignalRClientWPF/SignalRDataProvider/bin
+SignalRClientConsole/SignalRClientConsole/SignalRClientConsole.csproj.user

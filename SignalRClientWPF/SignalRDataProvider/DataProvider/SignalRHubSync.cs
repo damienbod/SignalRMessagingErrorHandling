@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 using Damienbod.SignalR.IHubSync.Client.Dto;
 using Microsoft.AspNet.SignalR.Client;
 using PortableSignalR.DataProvider;
@@ -10,32 +10,30 @@ namespace SignalRDataProvider.DataProvider
 {
     public class SignalRHubSync : ISignalRHubSync
     {
-        private MyHubClient _myHubClient;
+        private readonly MyHubClient _myHubClient;
 
+        //public event Action<bool> ConnectionEvent;
+        
         public SignalRHubSync()
         {
             _myHubClient = new MyHubClient();
+            _myHubClient.ConnectionEvent += _myHubClient_ConnectionEvent;
+            _myHubClient.RecievedMessageEvent += _myHubClient_RecievedMessageEvent;
         }
 
-        public Task<MyMessage> Recieve_AddMessage()
+        void _myHubClient_RecievedMessageEvent(MyMessage obj)
         {
-            throw new System.NotImplementedException();
+            if (RecieveMessageEvent != null) RecieveMessageEvent.Invoke(obj); 
         }
 
-        public Task<MyMessage> Recieve_Heartbeat()
+        void _myHubClient_ConnectionEvent(bool obj)
         {
-            throw new System.NotImplementedException();
+            if (ConnectionEvent != null) ConnectionEvent.Invoke(obj);
         }
 
-        public Task<MyMessage> Recieve_SendHelloObject()
-        {
-            throw new System.NotImplementedException();
-        }
+        public event Action<bool> ConnectionEvent;
+        public event Action<MyMessage> RecieveMessageEvent;
 
-        public Task<bool> ConnectionStateActive()
-        {
-            throw new System.NotImplementedException();
-        }
 
         public void Connect()
         {

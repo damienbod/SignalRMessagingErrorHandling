@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Damienbod.SignalR.IHubSync.Client;
 using Damienbod.SignalR.IHubSync.Client.Dto;
 using Microsoft.AspNet.SignalR.Client;
+using PortableSignalR.Model;
 using SignalRClientConsole.HubClients;
 using SignalRDataProvider.Logging;
 
@@ -10,6 +11,8 @@ namespace SignalRDataProvider.HubClients
 {
     public class MyHubClient : BaseHubClient, ISendHubSync, IRecieveHubSync
     {
+        public event Action<MyMessage> RecievedMessageEvent;
+
         public MyHubClient()
         {
             Init();
@@ -39,22 +42,25 @@ namespace SignalRDataProvider.HubClients
 
         public void Recieve_AddMessage(string name, string message)
         {
+            if (RecievedMessageEvent != null) RecievedMessageEvent.Invoke(new MyMessage { Name = name , Message = message});
             HubClientEvents.Log.Informational("Recieved addMessage: " + name + ": " + message);
         }
 
         public void Recieve_Heartbeat()
         {
+            if (RecievedMessageEvent != null) RecievedMessageEvent.Invoke(new MyMessage { Name = "Heartbeat", Message = "recieved" });
             HubClientEvents.Log.Informational("Recieved heartbeat ");
         }
 
         public void Recieve_SendHelloObject(HelloModel hello)
         {
+            if (RecievedMessageEvent != null) RecievedMessageEvent.Invoke(new MyMessage { Name = hello.Age.ToString(), Message = hello.Molly });
             HubClientEvents.Log.Informational("Recieved sendHelloObject " + hello.Molly + ", " + hello.Age);
         }
 
         public void AddMessage(string name, string message)
         {
-            _myHubProxy.Invoke("addMessage", "client message", " sent from console client").ContinueWith(task =>
+            _myHubProxy.Invoke("addMessage", name, message).ContinueWith(task =>
             {
                 if (task.IsFaulted)
                 {

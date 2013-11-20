@@ -1,17 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using PortableSignalR.Model;
 
 namespace PortableSignalR.DataProvider
 {
     public interface ISignalRHubSync
     {
-        Task<MyMessage> Recieve_AddMessage();
+        event Action<bool> ConnectionEvent;
 
-        Task<MyMessage> Recieve_Heartbeat();
-
-        Task<MyMessage> Recieve_SendHelloObject();
-
-        Task<bool> ConnectionStateActive();
+        event Action<MyMessage> RecieveMessageEvent;
 
         void Connect();
 

@@ -13,7 +13,8 @@ namespace PortableSignalR.ViewModel
         private string _messageText;
         private string _nameText;
         private bool _connectionActive;
-        private ISignalRHubSync _signalRHubSync;
+        private readonly ISignalRHubSync _signalRHubSync;
+        private readonly IContext _context;
 
         public DelegateCommand AddMessageCommand { get; private set; }
         public DelegateCommand SendHeartbeatCommand { get; private set; }
@@ -24,9 +25,10 @@ namespace PortableSignalR.ViewModel
 
         public ObservableCollection<MyMessage> MyMessages { get; private set; }
 
-        public MainViewModel(ISignalRHubSync signalRHubSync)
+        public MainViewModel(ISignalRHubSync signalRHubSync, IContext context)
         {
             _signalRHubSync = signalRHubSync;
+            _context = context;
             MyMessages = new ObservableCollection<MyMessage>();
             AddMessageCommand = new DelegateCommand(OnAddMessageExecute, OnAddMessageCanExecute);
             SendHeartbeatCommand = new DelegateCommand(OnSendHeartbeatExecute, OnSendHeartbeatCanExecute);
@@ -34,6 +36,19 @@ namespace PortableSignalR.ViewModel
 
             DisconnectSignalR = new DelegateCommand(OnDisconnectSignalRExecute, OnDisconnectSignalRCanExecute);
             ConnectSignalR = new DelegateCommand(OnConnectSignalRExecute, OnConnectSignalRCanExecute);
+
+            _signalRHubSync.ConnectionEvent += _signalRHubSync_ConnectionEvent;
+            _signalRHubSync.RecieveMessageEvent += _signalRHubSync_RecieveMessageEvent;
+        }
+
+        void _signalRHubSync_RecieveMessageEvent(MyMessage obj)
+        {
+            _context.RecieveMessageEvent(this, obj);
+        }
+
+        void _signalRHubSync_ConnectionEvent(bool obj)
+        {
+            _context.SendConnectionEvent(this, obj);
         }
 
 

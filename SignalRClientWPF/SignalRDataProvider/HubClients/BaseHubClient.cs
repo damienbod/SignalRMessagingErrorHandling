@@ -14,6 +14,7 @@ namespace SignalRClientConsole.HubClients
         public TraceLevels HubTraceLevel { get; set; }
         public System.IO.TextWriter HubTraceWriter { get; set; }
 
+        public event Action<bool> ConnectionEvent;
 
         public ConnectionState State
         {
@@ -80,11 +81,11 @@ namespace SignalRClientConsole.HubClients
         {
             if (this.State == ConnectionState.Connected)
             {
-                
+                if (ConnectionEvent != null) ConnectionEvent.Invoke(true);
             }
             else
             {
-                
+                if (ConnectionEvent != null) ConnectionEvent.Invoke(false);
             }
             HubClientEvents.Log.ClientEvents("_hubConnection_StateChanged New State:" + _hubConnection.State + " " + _hubConnection.ConnectionId);
         }

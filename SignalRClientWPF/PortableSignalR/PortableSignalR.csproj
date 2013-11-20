@@ -40,6 +40,7 @@
     <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="DataProvider\ISignalRHubSync.cs" />
     <Compile Include="Model\MyMessage.cs" />
+    <Compile Include="Base\IContext.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

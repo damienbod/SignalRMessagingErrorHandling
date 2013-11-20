@@ -41,7 +41,6 @@
     <Compile Include="DataProvider\ISignalRHubSync.cs" />
     <Compile Include="Model\MyMessage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="Model\HelloWpf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

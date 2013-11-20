@@ -44,7 +44,7 @@ namespace PortableSignalR.ViewModel
 
         private void OnDisconnectSignalRExecute(object obj)
         {
-            throw new System.NotImplementedException();
+            _signalRHubSync.Disconnect();
         }
 
         private bool OnConnectSignalRCanExecute(object obj)
@@ -54,7 +54,7 @@ namespace PortableSignalR.ViewModel
 
         private void OnConnectSignalRExecute(object obj)
         {
-            throw new System.NotImplementedException();
+            _signalRHubSync.Connect();
         }
 
         public void Load()
@@ -69,8 +69,8 @@ namespace PortableSignalR.ViewModel
 
         private void OnSendObjectExecute(object obj)
         {
-            MyMessages.Add(new MyMessage { Name = AgeText.ToString(), Message = MollyText });
-            // TODO send message
+            //MyMessages.Add(new MyMessage { Name = AgeText.ToString(), Message = MollyText });
+            _signalRHubSync.SendHelloObject(new MyMessage { Name = AgeText.ToString(), Message = MollyText });
             MollyText = "";
             AgeText = 0;
         }
@@ -82,8 +82,8 @@ namespace PortableSignalR.ViewModel
 
         private void OnSendHeartbeatExecute(object obj)
         {
-            // TODO send message
-            MyMessages.Add(new MyMessage { Name = "Heartbeat Test", Message = "hhhh" });
+            _signalRHubSync.Heartbeat();
+            //MyMessages.Add(new MyMessage { Name = "Heartbeat Test", Message = "hhhh" });
         }
 
         private bool OnAddMessageCanExecute(object obj)
@@ -93,8 +93,8 @@ namespace PortableSignalR.ViewModel
 
         private void OnAddMessageExecute(object obj)
         {
-            MyMessages.Add(new MyMessage { Name = NameText, Message = MessageText });
-            // TODO send message
+            //MyMessages.Add(new MyMessage { Name = NameText, Message = MessageText });
+            _signalRHubSync.AddMessage(new MyMessage { Name = NameText, Message = MessageText });
             MessageText = "";
             NameText = "";
         }

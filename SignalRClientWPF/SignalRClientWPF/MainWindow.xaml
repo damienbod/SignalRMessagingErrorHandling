@@ -40,8 +40,16 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Name}" FontSize="20"/>
-                        <TextBlock Text="{Binding Message}" FontSize="15"/>
+                        <Grid>            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"  />
+                                <ColumnDefinition Width="10"  />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                       
+                            <TextBlock Grid.Column ="0" Text="{Binding Name}" FontSize="15"/>
+                            <TextBlock Grid.Column ="2" Text="{Binding Message}" FontSize="15"/>                       
+                        </Grid>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

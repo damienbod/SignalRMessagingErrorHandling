@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using PortableSignalR.Model;
 
 namespace PortableSignalR.DataProvider

@@ -2,7 +2,7 @@
 using Microsoft.AspNet.SignalR.Client;
 using SignalRDataProvider.Logging;
 
-namespace SignalRClientConsole.HubClients
+namespace SignalRDataProvider.HubClients
 {
     public abstract class BaseHubClient
     {

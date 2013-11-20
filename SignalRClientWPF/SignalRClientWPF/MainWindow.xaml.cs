@@ -9,8 +9,6 @@ namespace SignalRClientWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public bool Active { get; set; }
-
         private MainViewModel _vm;
 
         public MainWindow()

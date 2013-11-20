@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Damienbod.SignalR.IHubSync.Client;
 using Damienbod.SignalR.IHubSync.Client.Dto;
 using Microsoft.AspNet.SignalR.Client;
 using PortableSignalR.Model;
-using SignalRClientConsole.HubClients;
 using SignalRDataProvider.Logging;
 
 namespace SignalRDataProvider.HubClients

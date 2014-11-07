@@ -4,20 +4,14 @@
         <name>Microsoft.Owin</name>
     </assembly>
     <members>
-        <member name="T:System.Reflection.AssemblyMetadataAttribute">
-            <summary>
-            Provided as a down-level stub for the 4.5 AssemblyMetaDataAttribute class.
-            All released assemblies should define [AssemblyMetadata("Serviceable", "True")].
-            </summary>
-        </member>
         <member name="T:Owin.AppBuilderUseExtensions">
             <summary>
-            Extension methods for IAppBuilder.
+            Extension methods for <see cref="T:Owin.IAppBuilder"/>.
             </summary>
         </member>
         <member name="M:Owin.AppBuilderUseExtensions.Use``1(Owin.IAppBuilder,System.Object[])">
             <summary>
-            
+            Inserts a middleware into the OWIN pipeline.
             </summary>
             <typeparam name="T">The middleware type</typeparam>
             <param name="app"></param>
@@ -26,14 +20,14 @@
         </member>
         <member name="M:Owin.AppBuilderUseExtensions.Run(Owin.IAppBuilder,System.Func{Microsoft.Owin.IOwinContext,System.Threading.Tasks.Task})">
             <summary>
-            
+            Inserts into the OWIN pipeline a middleware which does not have a next middleware reference.
             </summary>
             <param name="app"></param>
             <param name="handler">An app that handles all requests</param>
         </member>
         <member name="M:Owin.AppBuilderUseExtensions.Use(Owin.IAppBuilder,System.Func{Microsoft.Owin.IOwinContext,System.Func{System.Threading.Tasks.Task},System.Threading.Tasks.Task})">
             <summary>
-            
+            Inserts a middleware into the OWIN pipeline.
             </summary>
             <param name="app"></param>
             <param name="handler">An app that handles the request or calls the given next Func</param>
@@ -44,48 +38,25 @@
             Represents a middleware for executing in-line function middleware.
             </summary>
         </member>
-        <member name="T:Microsoft.Owin.OwinMiddleware">
-            <summary>
-            An abstract base class for a standard middleware pattern.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Owin.OwinMiddleware.#ctor(Microsoft.Owin.OwinMiddleware)">
-            <summary>
-            Instantiates the middleware with an optional pointer to the next component.
-            </summary>
-            <param name="next"></param>
-        </member>
-        <member name="M:Microsoft.Owin.OwinMiddleware.Invoke(Microsoft.Owin.IOwinContext)">
-            <summary>
-            Process an individual request.
-            </summary>
-            <param name="context"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Microsoft.Owin.OwinMiddleware.Next">
-            <summary>
-            The optional next component.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Owin.Extensions.UseHandlerMiddleware.#ctor(Microsoft.Owin.OwinMiddleware,System.Func{Microsoft.Owin.IOwinContext,System.Threading.Tasks.Task})">
+        <member name="M:Microsoft.Owin.Extensions.UseHandlerMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.Func{Microsoft.Owin.IOwinContext,System.Threading.Tasks.Task})">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Owin.Extensions.UseHandlerMiddleware" /> class.
             </summary>
             <param name="next">The pointer to next middleware.</param>
             <param name="handler">A function that handles all requests.</param>
         </member>
-        <member name="M:Microsoft.Owin.Extensions.UseHandlerMiddleware.#ctor(Microsoft.Owin.OwinMiddleware,System.Func{Microsoft.Owin.IOwinContext,System.Func{System.Threading.Tasks.Task},System.Threading.Tasks.Task})">
+        <member name="M:Microsoft.Owin.Extensions.UseHandlerMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.Func{Microsoft.Owin.IOwinContext,System.Func{System.Threading.Tasks.Task},System.Threading.Tasks.Task})">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Owin.Extensions.UseHandlerMiddleware" /> class.
             </summary>
             <param name="next">The pointer to next middleware.</param>
             <param name="handler">A function that handles the request or calls the given next function.</param>
         </member>
-        <member name="M:Microsoft.Owin.Extensions.UseHandlerMiddleware.Invoke(Microsoft.Owin.IOwinContext)">
+        <member name="M:Microsoft.Owin.Extensions.UseHandlerMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
             Invokes the handler for processing the request.
             </summary>
-            <param name="context">The OWIN context.</param>
+            <param name="environment">The OWIN context.</param>
             <returns>The <see cref="T:System.Threading.Tasks.Task" /> object that represents the request operation.</returns>
         </member>
         <member name="T:Microsoft.Owin.FormCollection">
@@ -427,6 +398,141 @@
             <param name="key">The header name.</param>
             <returns></returns>
         </member>
+        <member name="T:Microsoft.Owin.HostString">
+            <summary>
+            Represents the host portion of a Uri can be used to construct Uri's properly formatted and encoded for use in
+            HTTP headers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.HostString.#ctor(System.String)">
+            <summary>
+            Creates a new HostString without modification. The value should be Unicode rather than punycode, and may have a port.
+            IPv4 and IPv6 addresses are also allowed, and also may have ports.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.Owin.HostString.ToString">
+            <summary>
+            Returns the value as normalized by ToUriComponent().
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.HostString.ToUriComponent">
+            <summary>
+            Returns the value properly formatted and encoded for use in a URI in a HTTP header.
+            Any Unicode is converted to punycode. IPv6 addresses will have brackets added if they are missing.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.HostString.FromUriComponent(System.String)">
+            <summary>
+            Creates a new HostString from the given uri component.
+            Any punycode will be converted to Unicode.
+            </summary>
+            <param name="uriComponent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.HostString.FromUriComponent(System.Uri)">
+            <summary>
+            Creates a new HostString from the host and port of the give Uri instance.
+            Punycode will be converted to Unicode.
+            </summary>
+            <param name="uri"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.HostString.Equals(Microsoft.Owin.HostString)">
+            <summary>
+            Compares the equality of the Value property, ignoring case.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.HostString.Equals(System.Object)">
+            <summary>
+            Compares against the given object only if it is a HostString.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.HostString.GetHashCode">
+            <summary>
+            Gets a hash code for the value.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.HostString.op_Equality(Microsoft.Owin.HostString,Microsoft.Owin.HostString)">
+            <summary>
+            Compares the two instances for equality.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.HostString.op_Inequality(Microsoft.Owin.HostString,Microsoft.Owin.HostString)">
+            <summary>
+            Compares the two instances for inequality.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Owin.HostString.Value">
+            <summary>
+            Returns the original value from the constructor.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Owin.Infrastructure.ChunkingCookieManager">
+            <summary>
+            This handles cookies that are limited by per cookie length. It breaks down long cookies for responses, and reassembles them
+            from requests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Infrastructure.ChunkingCookieManager.GetRequestCookie(Microsoft.Owin.IOwinContext,System.String)">
+            <summary>
+            Get the reassembled cookie. Non chunked cookies are returned normally.
+            Cookies with missing chunks just have their "chunks:XX" header returned.
+            </summary>
+            <param name="context"></param>
+            <param name="key"></param>
+            <returns>The reassembled cookie, if any, or null.</returns>
+        </member>
+        <member name="M:Microsoft.Owin.Infrastructure.ChunkingCookieManager.AppendResponseCookie(Microsoft.Owin.IOwinContext,System.String,System.String,Microsoft.Owin.CookieOptions)">
+            <summary>
+            Appends a new response cookie to the Set-Cookie header. If the cookie is larger than the given size limit
+            then it will be broken down into multiple cookies as follows:
+            Set-Cookie: CookieName=chunks:3; path=/
+            Set-Cookie: CookieNameC1=Segment1; path=/
+            Set-Cookie: CookieNameC2=Segment2; path=/
+            Set-Cookie: CookieNameC3=Segment3; path=/
+            </summary>
+            <param name="context"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Microsoft.Owin.Infrastructure.ChunkingCookieManager.DeleteCookie(Microsoft.Owin.IOwinContext,System.String,Microsoft.Owin.CookieOptions)">
+            <summary>
+            Deletes the cookie with the given key by setting an expired state. If a matching chunked cookie exists on
+            the request, delete each chunk.
+            </summary>
+            <param name="context"></param>
+            <param name="key"></param>
+            <param name="options"></param>
+        </member>
+        <member name="P:Microsoft.Owin.Infrastructure.ChunkingCookieManager.ChunkSize">
+             <summary>
+             The maximum size of cookie to send back to the client. If a cookie exceeds this size it will be broken down into multiple
+             cookies. Set this value to null to disable this behavior. The default is 4090 characters, which is supported by all
+             common browsers.
+            
+             Note that browsers may also have limits on the total size of all cookies per domain, and on the number of cookies per domain.
+             </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Infrastructure.ChunkingCookieManager.ThrowForPartialCookies">
+            <summary>
+            Throw if not all chunks of a cookie are available on a request for re-assembly.
+            </summary>
+        </member>
         <member name="T:Microsoft.Owin.IOwinContext">
             <summary>
             This wraps OWIN environment dictionary and provides strongly typed accessors.
@@ -461,6 +567,12 @@
             </summary>
             <returns>A wrapper exposing response specific properties.</returns>
         </member>
+        <member name="P:Microsoft.Owin.IOwinContext.Authentication">
+            <summary>
+            Gets the Authentication middleware functionality available on the current request.
+            </summary>
+            <returns>The authentication middleware functionality available on the current request.</returns>
+        </member>
         <member name="P:Microsoft.Owin.IOwinContext.Environment">
             <summary>
             Gets the OWIN environment.
@@ -477,6 +589,12 @@
             <summary>
             This wraps OWIN environment dictionary and provides strongly typed accessors.
             </summary>
+        </member>
+        <member name="M:Microsoft.Owin.IOwinRequest.ReadFormAsync">
+            <summary>
+            Asynchronously reads and parses the request body as a form.
+            </summary>
+            <returns>The parsed form data.</returns>
         </member>
         <member name="M:Microsoft.Owin.IOwinRequest.Get``1(System.String)">
             <summary>
@@ -819,27 +937,27 @@
         </member>
         <member name="M:Microsoft.Owin.OwinStartupAttribute.#ctor(System.Type)">
             <summary>
-            
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.OwinStartupAttribute"/> class
             </summary>
             <param name="startupType">The startup class</param>
         </member>
         <member name="M:Microsoft.Owin.OwinStartupAttribute.#ctor(System.String,System.Type)">
             <summary>
-            
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.OwinStartupAttribute"/> class
             </summary>
             <param name="friendlyName">A non-default configuration, e.g. staging.</param>
             <param name="startupType">The startup class</param>
         </member>
         <member name="M:Microsoft.Owin.OwinStartupAttribute.#ctor(System.Type,System.String)">
             <summary>
-            
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.OwinStartupAttribute"/> class
             </summary>
             <param name="startupType">The startup class</param>
             <param name="methodName">Specifies which method to call</param>
         </member>
         <member name="M:Microsoft.Owin.OwinStartupAttribute.#ctor(System.String,System.Type,System.String)">
             <summary>
-            
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.OwinStartupAttribute"/> class
             </summary>
             <param name="friendlyName">A non-default configuration, e.g. staging.</param>
             <param name="startupType">The startup class</param>
@@ -862,68 +980,78 @@
         </member>
         <member name="T:Owin.PipelineStage">
             <summary>
-            An ordered list of known Asp.Net integrated pipeline stages.
+            An ordered list of known Asp.Net integrated pipeline stages. More details on the ASP.NET integrated pipeline can be found at http://msdn.microsoft.com/en-us/library/system.web.httpapplication.aspx
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.Authenticate">
             <summary>
-            
+            Corresponds to the AuthenticateRequest stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.PostAuthenticate">
             <summary>
-            
+            Corresponds to the PostAuthenticateRequest stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.Authorize">
             <summary>
-            
+            Corresponds to the AuthorizeRequest stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.PostAuthorize">
             <summary>
-            
+            Corresponds to the PostAuthorizeRequest stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.ResolveCache">
             <summary>
-            
+            Corresponds to the ResolveRequestCache stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.PostResolveCache">
             <summary>
-            
+            Corresponds to the PostResolveRequestCache stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.MapHandler">
             <summary>
-            
+            Corresponds to the MapRequestHandler stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.PostMapHandler">
             <summary>
-            
+            Corresponds to the PostMapRequestHandler stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.AcquireState">
             <summary>
-            
+            Corresponds to the AcquireRequestState stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.PostAcquireState">
             <summary>
-            
+            Corresponds to the PostAcquireRequestState stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="F:Owin.PipelineStage.PreHandlerExecute">
             <summary>
-            
+            Corresponds to the PreRequestHandlerExecute stage of the ASP.NET integrated pipeline.
             </summary>
         </member>
         <member name="T:Owin.MapExtensions">
             <summary>
             Extension methods for the MapMiddleware
             </summary>
+        </member>
+        <member name="M:Owin.MapExtensions.Map(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder})">
+            <summary>
+            If the request path starts with the given pathMatch, execute the app configured via configuration parameter instead of
+            continuing to the next component in the pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="pathMatch">The path to match</param>
+            <param name="configuration">The branch to take for positive path matches</param>
+            <returns></returns>
         </member>
         <member name="M:Owin.MapExtensions.Map(Owin.IAppBuilder,Microsoft.Owin.PathString,System.Action{Owin.IAppBuilder})">
             <summary>
@@ -942,18 +1070,18 @@
             Matching paths have the matching piece removed from owin.RequestPath and added to the owin.RequestPathBase.
             </summary>
         </member>
-        <member name="M:Microsoft.Owin.Mapping.MapMiddleware.#ctor(Microsoft.Owin.OwinMiddleware,Microsoft.Owin.Mapping.MapOptions)">
+        <member name="M:Microsoft.Owin.Mapping.MapMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},Microsoft.Owin.Mapping.MapOptions)">
             <summary>
-            
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Mapping.MapMiddleware"/> class
             </summary>
             <param name="next">The normal pipeline taken for a negative match</param>
             <param name="options"></param>
         </member>
-        <member name="M:Microsoft.Owin.Mapping.MapMiddleware.Invoke(Microsoft.Owin.IOwinContext)">
+        <member name="M:Microsoft.Owin.Mapping.MapMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
-            
+            Process an individual request.
             </summary>
-            <param name="context"></param>
+            <param name="environment"></param>
             <returns></returns>
         </member>
         <member name="T:Microsoft.Owin.Mapping.MapOptions">
@@ -985,24 +1113,33 @@
             <param name="configuration">Configures a branch to take</param>
             <returns></returns>
         </member>
+        <member name="M:Owin.MapWhenExtensions.MapWhenAsync(Owin.IAppBuilder,System.Func{Microsoft.Owin.IOwinContext,System.Threading.Tasks.Task{System.Boolean}},System.Action{Owin.IAppBuilder})">
+            <summary>
+            Branches the request pipeline based on the async result of the given predicate.
+            </summary>
+            <param name="app"></param>
+            <param name="predicate">Invoked asynchronously with the request environment to determine if the branch should be taken</param>
+            <param name="configuration">Configures a branch to take</param>
+            <returns></returns>
+        </member>
         <member name="T:Microsoft.Owin.Mapping.MapWhenMiddleware">
             <summary>
             Determines if the request should take a specific branch of the pipeline by passing the environment
             to a user defined callback.
             </summary>
         </member>
-        <member name="M:Microsoft.Owin.Mapping.MapWhenMiddleware.#ctor(Microsoft.Owin.OwinMiddleware,Microsoft.Owin.Mapping.MapWhenOptions)">
+        <member name="M:Microsoft.Owin.Mapping.MapWhenMiddleware.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},Microsoft.Owin.Mapping.MapWhenOptions)">
             <summary>
-            
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Mapping.MapWhenMiddleware"/> class
             </summary>
             <param name="next">The normal application pipeline</param>
             <param name="options"></param>
         </member>
-        <member name="M:Microsoft.Owin.Mapping.MapWhenMiddleware.Invoke(Microsoft.Owin.IOwinContext)">
+        <member name="M:Microsoft.Owin.Mapping.MapWhenMiddleware.Invoke(System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
-            
+            Process an individual request.
             </summary>
-            <param name="context"></param>
+            <param name="environment"></param>
             <returns></returns>
         </member>
         <member name="T:Microsoft.Owin.Mapping.MapWhenOptions">
@@ -1013,6 +1150,11 @@
         <member name="P:Microsoft.Owin.Mapping.MapWhenOptions.Predicate">
             <summary>
             The user callback that determines if the branch should be taken
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Mapping.MapWhenOptions.PredicateAsync">
+            <summary>
+            The async user callback that determines if the branch should be taken
             </summary>
         </member>
         <member name="P:Microsoft.Owin.Mapping.MapWhenOptions.Branch">
@@ -1034,7 +1176,7 @@
             <summary>
             Create a new wrapper.
             </summary>
-            <param name="environment"></param>
+            <param name="environment">OWIN environment dictionary which stores state information about the request, response and relevant server state.</param>
         </member>
         <member name="M:Microsoft.Owin.OwinContext.Get``1(System.String)">
             <summary>
@@ -1065,6 +1207,12 @@
             </summary>
             <returns>A wrapper exposing response specific properties.</returns>
         </member>
+        <member name="P:Microsoft.Owin.OwinContext.Authentication">
+            <summary>
+            Gets the Authentication middleware functionality available on the current request.
+            </summary>
+            <returns>The authentication middleware functionality available on the current request.</returns>
+        </member>
         <member name="P:Microsoft.Owin.OwinContext.Environment">
             <summary>
             Gets the OWIN environment.
@@ -1089,7 +1237,7 @@
         </member>
         <member name="M:Microsoft.Owin.PathString.#ctor(System.String)">
             <summary>
-            Initalize the path string with a given value. This value must be in unescaped format. Use
+            Initialize the path string with a given value. This value must be in un-escaped format. Use
             PathString.FromUriComponent(value) if you have a path value which is in an escaped format.
             </summary>
             <param name="value">The unescaped path to be assigned to the Value property.</param>
@@ -1120,6 +1268,21 @@
             </summary>
             <param name="uri">The Uri object</param>
             <returns>The resulting PathString</returns>
+        </member>
+        <member name="M:Microsoft.Owin.PathString.StartsWithSegments(Microsoft.Owin.PathString)">
+            <summary>
+            Checks if this instance starts with or exactly matches the other instance. Only full segments are matched.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.PathString.StartsWithSegments(Microsoft.Owin.PathString,Microsoft.Owin.PathString@)">
+            <summary>
+            Checks if this instance starts with or exactly matches the other instance. Only full segments are matched.
+            </summary>
+            <param name="other"></param>
+            <param name="remaining">Any remaining segments from this instance not included in the other instance.</param>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.Owin.PathString.Add(Microsoft.Owin.PathString)">
             <summary>
@@ -1215,7 +1378,7 @@
         </member>
         <member name="M:Microsoft.Owin.QueryString.#ctor(System.String)">
             <summary>
-            Initalize the query string with a given value. This value must be in escaped and delimited format without 
+            Initialize the query string with a given value. This value must be in escaped and delimited format without
             a leading '?' character. 
             </summary>
             <param name="value">The query string to be assigned to the Value property.</param>
@@ -1230,7 +1393,7 @@
         <member name="M:Microsoft.Owin.QueryString.ToString">
             <summary>
             Provides the query string escaped in a way which is correct for combining into the URI representation. 
-            A leading '?' character will be prepended unless the Value is null or empty. Characters which are potentally
+            A leading '?' character will be prepended unless the Value is null or empty. Characters which are potentially
             dangerous are escaped.
             </summary>
             <returns>The query string value</returns>
@@ -1258,9 +1421,45 @@
             <param name="uri">The Uri object</param>
             <returns>The resulting QueryString</returns>
         </member>
+        <member name="M:Microsoft.Owin.QueryString.Equals(Microsoft.Owin.QueryString)">
+            <summary>
+            Indicates whether the current instance is equal to the other instance.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.QueryString.Equals(System.Object)">
+            <summary>
+            Indicates whether the current instance is equal to the other instance.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.QueryString.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.QueryString.op_Equality(Microsoft.Owin.QueryString,Microsoft.Owin.QueryString)">
+            <summary>
+            Compares the two instances for equality.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Owin.QueryString.op_Inequality(Microsoft.Owin.QueryString,Microsoft.Owin.QueryString)">
+            <summary>
+            Compares the two instances for inequality.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
         <member name="P:Microsoft.Owin.QueryString.Value">
             <summary>
-            The unescaped query string without the leading '?' character
+            The escaped query string without the leading '?' character
             </summary>
         </member>
         <member name="P:Microsoft.Owin.QueryString.HasValue">
@@ -1317,6 +1516,16 @@
         <member name="P:Microsoft.Owin.Resources.Exception_ConversionTakesOneParameter">
             <summary>
               Looks up a localized string similar to Conversion delegate must take one parameter..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Resources.Exception_CookieLimitTooSmall">
+            <summary>
+              Looks up a localized string similar to The cookie key and options are larger than ChunksSize, leaving no room for data..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Resources.Exception_ImcompleteChunkedCookie">
+            <summary>
+              Looks up a localized string similar to The chunked cookie is incomplete. Only {0} of the expected {1} chunks were found, totaling {2} characters. A client size limit may have been exceeded..
             </summary>
         </member>
         <member name="P:Microsoft.Owin.Resources.Exception_MiddlewareNotSupported">
@@ -1541,6 +1750,67 @@
             </summary>
             <param name="key"></param>
             <param name="options"></param>
+        </member>
+        <member name="T:Microsoft.Owin.Security.AuthenticateResult">
+            <summary>
+            Acts as the return value from calls to the IAuthenticationManager's AuthenticeAsync methods.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticateResult.#ctor(System.Security.Principal.IIdentity,Microsoft.Owin.Security.AuthenticationProperties,Microsoft.Owin.Security.AuthenticationDescription)">
+            <summary>
+            Create an instance of the result object
+            </summary>
+            <param name="identity">Assigned to Identity. May be null.</param>
+            <param name="properties">Assigned to Properties. Contains extra information carried along with the identity.</param>
+            <param name="description">Assigned to Description. Contains information describing the authentication provider.</param>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticateResult.Identity">
+            <summary>
+            Contains the claims that were authenticated by the given AuthenticationType. If the authentication
+            type was not successful the Identity property will be null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticateResult.Properties">
+            <summary>
+            Contains extra values that were provided with the original SignIn call.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticateResult.Description">
+            <summary>
+            Contains description properties for the middleware authentication type in general. Does not
+            vary per request.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Owin.Security.AuthenticationDescription">
+            <summary>
+            Contains information describing an authentication provider.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticationDescription.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.AuthenticationDescription"/> class
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticationDescription.#ctor(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.AuthenticationDescription"/> class
+            </summary>
+            <param name="properties"></param>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationDescription.Properties">
+            <summary>
+            Contains metadata about the authentication provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationDescription.AuthenticationType">
+            <summary>
+            Gets or sets the name used to reference the authentication middleware instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationDescription.Caption">
+            <summary>
+            Gets or sets the display name for the authentication provider.
+            </summary>
         </member>
         <member name="T:Microsoft.Owin.Extensions.IntegratedPipelineExtensions">
             <summary>
@@ -2121,9 +2391,44 @@
             <param name="builder"></param>
             <param name="conversion"></param>
         </member>
+        <member name="T:Microsoft.Owin.Helpers.WebHelpers">
+            <summary>
+            Provides helper methods for processing requests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Helpers.WebHelpers.ParseForm(System.String)">
+            <summary>
+            Parses an HTTP form body.
+            </summary>
+            <param name="text">The HTTP form body to parse.</param>
+            <returns>The <see cref="T:Microsoft.Owin.IFormCollection" /> object containing the parsed HTTP form body.</returns>
+        </member>
         <member name="T:Microsoft.Owin.Infrastructure.AppFuncTransition">
             <summary>
             Converts between an OwinMiddlware and an <typeref name="Func&lt;IDictionary&lt;string,object&gt;, Task&gt;"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Owin.OwinMiddleware">
+            <summary>
+            An abstract base class for a standard middleware pattern.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.OwinMiddleware.#ctor(Microsoft.Owin.OwinMiddleware)">
+            <summary>
+            Instantiates the middleware with an optional pointer to the next component.
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:Microsoft.Owin.OwinMiddleware.Invoke(Microsoft.Owin.IOwinContext)">
+            <summary>
+            Process an individual request.
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Owin.OwinMiddleware.Next">
+            <summary>
+            The optional next component.
             </summary>
         </member>
         <member name="M:Microsoft.Owin.Infrastructure.AppFuncTransition.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task})">
@@ -2154,7 +2459,7 @@
             <summary>
             
             </summary>
-            <param name="environment"></param>
+            <param name="environment">OWIN environment dictionary which stores state information about the request, response and relevant server state.</param>
             <returns></returns>
         </member>
         <member name="T:Microsoft.Owin.Infrastructure.SignatureConversions">
@@ -2182,7 +2487,13 @@
             <summary>
             Create a new environment wrapper exposing request properties.
             </summary>
-            <param name="environment"></param>
+            <param name="environment">OWIN environment dictionary which stores state information about the request, response and relevant server state.</param>
+        </member>
+        <member name="M:Microsoft.Owin.OwinRequest.ReadFormAsync">
+            <summary>
+            Asynchronously reads and parses the request body as a form.
+            </summary>
+            <returns>The parsed form data.</returns>
         </member>
         <member name="M:Microsoft.Owin.OwinRequest.Get``1(System.String)">
             <summary>
@@ -2365,7 +2676,7 @@
             <summary>
             Creates a new environment wrapper exposing response properties.
             </summary>
-            <param name="environment"></param>
+            <param name="environment">OWIN environment dictionary which stores state information about the request, response and relevant server state.</param>
         </member>
         <member name="M:Microsoft.Owin.OwinResponse.OnSendingHeaders(System.Action{System.Object},System.Object)">
             <summary>
@@ -2529,6 +2840,286 @@
             </summary>
             <returns>The owin.ResponseBody Stream.</returns>
         </member>
+        <member name="T:Microsoft.Owin.Security.IAuthenticationManager">
+            <summary>
+            Used to interact with authentication middleware that have been chained in the pipeline
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.IAuthenticationManager.GetAuthenticationTypes">
+            <summary>
+            Lists all of the description data provided by authentication middleware that have been chained
+            </summary>
+            <returns>The authentication descriptions</returns>
+        </member>
+        <member name="M:Microsoft.Owin.Security.IAuthenticationManager.GetAuthenticationTypes(System.Func{Microsoft.Owin.Security.AuthenticationDescription,System.Boolean})">
+            <summary>
+            Lists the description data of all of the authentication middleware which are true for a given predicate
+            </summary>
+            <param name="predicate">A function provided by the caller which returns true for descriptions that should be in the returned list</param>
+            <returns>The authentication descriptions</returns>
+        </member>
+        <member name="M:Microsoft.Owin.Security.IAuthenticationManager.AuthenticateAsync(System.String)">
+            <summary>
+            Call back through the middleware to ask for a specific form of authentication to be performed
+            on the current request
+            </summary>
+            <param name="authenticationType">Identifies which middleware should respond to the request
+            for authentication. This value is compared to the middleware's Options.AuthenticationType property.</param>
+            <returns>Returns an object with the results of the authentication. The AuthenticationResult.Identity
+            may be null if authentication failed. Even if the Identity property is null, there may still be 
+            AuthenticationResult.properties and AuthenticationResult.Description information returned.</returns>
+        </member>
+        <member name="M:Microsoft.Owin.Security.IAuthenticationManager.AuthenticateAsync(System.String[])">
+            <summary>
+            Called to perform any number of authentication mechanisms on the current request.
+            </summary>
+            <param name="authenticationTypes">Identifies one or more middleware which should attempt to respond</param>
+            <returns>Returns the AuthenticationResult information from the middleware which responded. The 
+            order is determined by the order the middleware are in the pipeline. Latest added is first in the list.</returns>
+        </member>
+        <member name="M:Microsoft.Owin.Security.IAuthenticationManager.Challenge(Microsoft.Owin.Security.AuthenticationProperties,System.String[])">
+            <summary>
+            Add information into the response environment that will cause the authentication middleware to challenge
+            the caller to authenticate. This also changes the status code of the response to 401. The nature of that 
+            challenge varies greatly, and ranges from adding a response header or changing the 401 status code to 
+            a 302 redirect.
+            </summary>
+            <param name="properties">Additional arbitrary values which may be used by particular authentication types.</param>
+            <param name="authenticationTypes">Identify which middleware should perform their alterations on the
+            response. If the authenticationTypes is null or empty, that means the 
+            AuthenticationMode.Active middleware should perform their alterations on the response.</param>
+        </member>
+        <member name="M:Microsoft.Owin.Security.IAuthenticationManager.Challenge(System.String[])">
+            <summary>
+            Add information into the response environment that will cause the authentication middleware to challenge
+            the caller to authenticate. This also changes the status code of the response to 401. The nature of that 
+            challenge varies greatly, and ranges from adding a response header or changing the 401 status code to 
+            a 302 redirect.
+            </summary>
+            <param name="authenticationTypes">Identify which middleware should perform their alterations on the
+            response. If the authenticationTypes is null or empty, that means the 
+            AuthenticationMode.Active middleware should perform their alterations on the response.</param>
+        </member>
+        <member name="M:Microsoft.Owin.Security.IAuthenticationManager.SignIn(Microsoft.Owin.Security.AuthenticationProperties,System.Security.Claims.ClaimsIdentity[])">
+            <summary>
+            Add information to the response environment that will cause the appropriate authentication middleware
+            to grant a claims-based identity to the recipient of the response. The exact mechanism of this may vary.
+            Examples include setting a cookie, to adding a fragment on the redirect url, or producing an OAuth2
+            access code or token response.
+            </summary>
+            <param name="properties">Contains additional properties the middleware are expected to persist along with
+            the claims. These values will be returned as the AuthenticateResult.properties collection when AuthenticateAsync
+            is called on subsequent requests.</param>
+            <param name="identities">Determines which claims are granted to the signed in user. The 
+            ClaimsIdentity.AuthenticationType property is compared to the middleware's Options.AuthenticationType 
+            value to determine which claims are granted by which middleware. The recommended use is to have a single
+            ClaimsIdentity which has the AuthenticationType matching a specific middleware.</param>
+        </member>
+        <member name="M:Microsoft.Owin.Security.IAuthenticationManager.SignIn(System.Security.Claims.ClaimsIdentity[])">
+            <summary>
+            Add information to the response environment that will cause the appropriate authentication middleware
+            to grant a claims-based identity to the recipient of the response. The exact mechanism of this may vary.
+            Examples include setting a cookie, to adding a fragment on the redirect url, or producing an OAuth2
+            access code or token response.
+            </summary>
+            <param name="identities">Determines which claims are granted to the signed in user. The 
+            ClaimsIdentity.AuthenticationType property is compared to the middleware's Options.AuthenticationType 
+            value to determine which claims are granted by which middleware. The recommended use is to have a single
+            ClaimsIdentity which has the AuthenticationType matching a specific middleware.</param>
+        </member>
+        <member name="M:Microsoft.Owin.Security.IAuthenticationManager.SignOut(Microsoft.Owin.Security.AuthenticationProperties,System.String[])">
+            <summary>
+            Add information to the response environment that will cause the appropriate authentication middleware
+            to revoke any claims identity associated the the caller. The exact method varies.
+            </summary>
+            <param name="properties">Additional arbitrary values which may be used by particular authentication types.</param>
+            <param name="authenticationTypes">Identifies which middleware should perform the work to sign out.
+            Multiple authentication types may be provided to clear out more than one cookie at a time, or to clear
+            cookies and redirect to an external single-sign out url.</param>
+        </member>
+        <member name="M:Microsoft.Owin.Security.IAuthenticationManager.SignOut(System.String[])">
+            <summary>
+            Add information to the response environment that will cause the appropriate authentication middleware
+            to revoke any claims identity associated the the caller. The exact method varies.
+            </summary>
+            <param name="authenticationTypes">Identifies which middleware should perform the work to sign out.
+            Multiple authentication types may be provided to clear out more than one cookie at a time, or to clear
+            cookies and redirect to an external single-sign out url.</param>
+        </member>
+        <member name="P:Microsoft.Owin.Security.IAuthenticationManager.User">
+            <summary>
+            Returns the current user for the request
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.IAuthenticationManager.AuthenticationResponseChallenge">
+            <summary>
+            Exposes the security.Challenge environment value as a strong type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.IAuthenticationManager.AuthenticationResponseGrant">
+            <summary>
+            Exposes the security.SignIn environment value as a strong type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.IAuthenticationManager.AuthenticationResponseRevoke">
+            <summary>
+            Exposes the security.SignOut environment value as a strong type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticationManager.Authenticate(System.String[],System.Action{System.Security.Principal.IIdentity,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Object},System.Object},System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="authenticationTypes"></param>
+            <param name="callback"></param>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationManager.AuthenticationResponseChallenge">
+            <summary>
+            Exposes the security.Challenge environment value as a strong type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationManager.AuthenticationResponseGrant">
+            <summary>
+            Exposes the security.SignIn environment value as a strong type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationManager.AuthenticationResponseRevoke">
+            <summary>
+            Exposes the security.SignOut environment value as a strong type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Owin.Security.AuthenticationProperties">
+            <summary>
+            Dictionary used to store state values about the authentication session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticationProperties.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.AuthenticationProperties"/> class
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticationProperties.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.AuthenticationProperties"/> class
+            </summary>
+            <param name="dictionary"></param>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationProperties.Dictionary">
+            <summary>
+            State values about the authentication session.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationProperties.IsPersistent">
+            <summary>
+            Gets or sets whether the authentication session is persisted across multiple requests.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationProperties.RedirectUri">
+            <summary>
+            Gets or sets the full path or absolute URI to be used as an http redirect response value. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationProperties.IssuedUtc">
+            <summary>
+            Gets or sets the time at which the authentication ticket was issued.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationProperties.ExpiresUtc">
+            <summary>
+            Gets or sets the time at which the authentication ticket expires.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationProperties.AllowRefresh">
+            <summary>
+            Gets or sets if refreshing the authentication session should be allowed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Owin.Security.AuthenticationResponseChallenge">
+            <summary>
+            Exposes the security.Challenge environment value as a strong type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticationResponseChallenge.#ctor(System.String[],Microsoft.Owin.Security.AuthenticationProperties)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.AuthenticationResponseChallenge"/> class
+            </summary>
+            <param name="authenticationTypes"></param>
+            <param name="properties"></param>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationResponseChallenge.AuthenticationTypes">
+            <summary>
+            List of the authentication types that should send a challenge in the response.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationResponseChallenge.Properties">
+            <summary>
+            Dictionary used to store state values about the authentication session.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Owin.Security.AuthenticationResponseGrant">
+            <summary>
+            Exposes the security.SignIn environment value as a strong type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticationResponseGrant.#ctor(System.Security.Claims.ClaimsIdentity,Microsoft.Owin.Security.AuthenticationProperties)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.AuthenticationResponseGrant"/> class.
+            </summary>
+            <param name="identity"></param>
+            <param name="properties"></param>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticationResponseGrant.#ctor(System.Security.Claims.ClaimsPrincipal,Microsoft.Owin.Security.AuthenticationProperties)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.AuthenticationResponseGrant"/> class.
+            </summary>
+            <param name="principal"></param>
+            <param name="properties"></param>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationResponseGrant.Identity">
+            <summary>
+            The identity associated with the user sign in.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationResponseGrant.Principal">
+            <summary>
+            The security principal associated with the user sign in.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationResponseGrant.Properties">
+            <summary>
+            Dictionary used to store state values about the authentication session.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Owin.Security.AuthenticationResponseRevoke">
+            <summary>
+            Exposes the security.SignOut and security.SignOutProperties environment values as a strong type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticationResponseRevoke.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.AuthenticationResponseRevoke"/> class
+            </summary>
+            <param name="authenticationTypes"></param>
+        </member>
+        <member name="M:Microsoft.Owin.Security.AuthenticationResponseRevoke.#ctor(System.String[],Microsoft.Owin.Security.AuthenticationProperties)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.AuthenticationResponseRevoke"/> class
+            </summary>
+            <param name="authenticationTypes"></param>
+            <param name="properties"></param>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationResponseRevoke.AuthenticationTypes">
+            <summary>
+            List of the authentication types that should be revoked on sign out.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.AuthenticationResponseRevoke.Properties">
+            <summary>
+            Dictionary used to store state values about the authentication session.
+            </summary>
+        </member>
         <member name="T:Microsoft.Owin.Logging.DiagnosticsLoggerFactory">
             <summary>
             Provides an ILoggerFactory based on System.Diagnostics.TraceSource.
@@ -2536,12 +3127,15 @@
         </member>
         <member name="M:Microsoft.Owin.Logging.DiagnosticsLoggerFactory.#ctor">
             <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Logging.DiagnosticsLoggerFactory"/> class. 
+            </summary>
+            <summary>
             Creates a factory named "Microsoft.Owin".
             </summary>
         </member>
         <member name="M:Microsoft.Owin.Logging.DiagnosticsLoggerFactory.#ctor(System.Diagnostics.SourceSwitch,System.Diagnostics.TraceListener)">
             <summary>
-            
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Logging.DiagnosticsLoggerFactory"/> class.
             </summary>
             <param name="rootSourceSwitch"></param>
             <param name="rootTraceListener"></param>

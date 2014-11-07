@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using PortableSignalR.Base;
 using PortableSignalR.Command;
 using PortableSignalR.DataProvider;
@@ -21,9 +22,10 @@ namespace PortableSignalR.ViewModel
         public DelegateCommand SendObjectCommand { get; private set; }
 
         public DelegateCommand DisconnectSignalR { get; private set; }
+
         public DelegateCommand ConnectSignalR { get; private set; }
 
-        public ObservableCollection<MyMessage> MyMessages { get; private set; }
+        public ObservableCollection<MyMessage> MyMessages { get; private set; } 
 
         public MainViewModel(ISignalRHubSync signalRHubSync, IContext context)
         {
@@ -39,6 +41,8 @@ namespace PortableSignalR.ViewModel
 
             _signalRHubSync.ConnectionEvent += _signalRHubSync_ConnectionEvent;
             _signalRHubSync.RecieveMessageEvent += _signalRHubSync_RecieveMessageEvent;
+
+         
         }
 
         void _signalRHubSync_RecieveMessageEvent(MyMessage obj)

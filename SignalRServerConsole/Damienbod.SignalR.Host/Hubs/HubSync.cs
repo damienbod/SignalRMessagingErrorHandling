@@ -39,10 +39,10 @@ namespace Damienbod.SignalR.Host.Hubs
             return (base.OnConnected());
         }
 
-        public override Task OnDisconnected()
+        public override Task OnDisconnected(bool stopCalled)
         {
             _slabLogger.Log(HubType.HubServerVerbose, "HubSync OnDisconnected" + Context.ConnectionId);
-            return (base.OnDisconnected());
+            return (base.OnDisconnected(stopCalled));
         }
 
         public override Task OnReconnected()

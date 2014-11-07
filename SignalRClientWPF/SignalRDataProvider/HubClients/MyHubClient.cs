@@ -25,9 +25,9 @@ namespace SignalRDataProvider.HubClients
 
             base.Init();
 
-            _myHubProxy.On<string, string>("addMessage", Recieve_AddMessage);
-            _myHubProxy.On("heartbeat", Recieve_Heartbeat);
-            _myHubProxy.On<HelloModel>("sendHelloObject", Recieve_SendHelloObject);
+            _myHubProxy.On<string, string>("AddMessage", Recieve_AddMessage);
+            _myHubProxy.On("Heartbeat", Recieve_Heartbeat);
+            _myHubProxy.On<HelloModel>("SendHelloObject", Recieve_SendHelloObject);
 
             StartHubInternal();
         }
@@ -58,7 +58,7 @@ namespace SignalRDataProvider.HubClients
 
         public void AddMessage(string name, string message)
         {
-            _myHubProxy.Invoke("addMessage", name, message).ContinueWith(task =>
+            _myHubProxy.Invoke("AddMessage", name, message).ContinueWith(task =>
             {
                 if (task.IsFaulted)
                 {

@@ -22,9 +22,9 @@ namespace SignalRClientConsole.HubClients
 
             base.Init();
 
-            _myHubProxy.On<string, string>("addMessage", Recieve_AddMessage);
-            _myHubProxy.On("heartbeat", Recieve_Heartbeat);
-            _myHubProxy.On<HelloModel>("sendHelloObject", Recieve_SendHelloObject);
+            _myHubProxy.On<string, string>("AddMessage", Recieve_AddMessage);
+            _myHubProxy.On("Heartbeat", Recieve_Heartbeat);
+            _myHubProxy.On<HelloModel>("SendHelloObject", Recieve_SendHelloObject);
 
             StartHubInternal();
         }
